@@ -1,0 +1,11 @@
+version: '3'
+services:
+  core3_angular:
+    image: core3_angular:latest
+    build: .
+    volumes:
+      - .:/core3_angular
+    ports:
+      - "8888:80"
+    container_name: core3_angular
+    restart: always
