@@ -1,14 +1,19 @@
-FROM node:12.2.0 as build
+FROM node:10.7
 
-WORKDIR /app
-ENV PATH /app/node_modules/.bin:$PATH
-COPY package.json /app/package.json
+ENV HOST 0.0.0.0
+
+RUN  mkdir -p /usr/src/app
+
+WORKDIR /usr/src/app
+
+COPY package.json /usr/src/app
+
 RUN npm install
-RUN npm install -g @angular/cli@7.3.9
-COPY . /app
-RUN ng build --prod --output-path=dist
 
-FROM nginx:1.16.0-alpine
-COPY --from=build /app/dist /usr/share/nginx/html
-EXPOSE 8888
-CMD ["nginx", "-g", "daemon off;"]
+COPY . /usr/src/app
+
+RUN npm run build:ssr
+
+EXPOSE 4444
+
+CMD ["npm run serve:ssr"]

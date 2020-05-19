@@ -21,7 +21,7 @@ import { CustomerService } from 'src/services/customer.service';
     CustomerDeleteComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     HttpClientModule,
     AppRoutingModule
   ],

@@ -6,6 +6,6 @@ services:
     volumes:
       - .:/core3_angular
     ports:
-      - "8888:80"
+      - "4444:4000"
     container_name: core3_angular
     restart: always

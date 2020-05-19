@@ -29,3 +29,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## Used CLI Command
 
 ng new CORE3-angularv9 -s -t --minimal --routing -g -S --strict --style=scss --verbose
+
+## Enabled SSR using:
+
+ng add @nguniversal/express-engine
