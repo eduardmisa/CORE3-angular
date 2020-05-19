@@ -147,5 +147,8 @@
       }
     }
   },
-  "defaultProject": "CORE3Angular"
+  "defaultProject": "CORE3Angular",
+  "cli": {
+    "analytics": false
+  }
 }
