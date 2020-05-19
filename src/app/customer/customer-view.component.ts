@@ -4,11 +4,20 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Customer } from 'src/interfaces/customer.interface';
 
 @Component({
-  selector: 'app-customer-delete',
-  templateUrl: './customer-delete.component.html',
-  styleUrls: ['./customer-delete.component.css']
+  selector: 'app-customer-view',
+  template: `
+    <button (click)="backToList()">Back to list</button>
+    <br/>
+    slug:
+    {{customerId}}
+
+    <br/><br/>
+    Customer Details: <br/>
+    {{customer?.firstName}} {{customer?.middleName}} {{customer?.lastName}}
+
+  `,
 })
-export class CustomerDeleteComponent implements OnInit {
+export class CustomerViewComponent implements OnInit {
 
   customerId: Number
   customer: Customer
@@ -17,16 +26,18 @@ export class CustomerDeleteComponent implements OnInit {
     this.route.params.subscribe(({id}) => this.customerId = id);
    }
 
+   backToList () {
+    this.router.navigateByUrl(`/customers`)
+   }
+
   ngOnInit(): void {
     this.fetchCustomers()
   }
 
-  backToList () {
-    this.router.navigateByUrl(`/customers`)
-  }
   fetchCustomers () {
     this.svcCustomer.retreive(this.customerId.toString()).subscribe(item => {
       this.customer = item
     })
   }
 }
+

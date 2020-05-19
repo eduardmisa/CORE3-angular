@@ -4,11 +4,19 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Customer } from 'src/interfaces/customer.interface';
 
 @Component({
-  selector: 'app-customer-update',
-  templateUrl: './customer-update.component.html',
-  styleUrls: ['./customer-update.component.css']
+  selector: 'app-customer-delete',
+  template: `
+    <button (click)="backToList()">Back to list</button>
+    <br/>
+    slug:
+    {{customerId}}
+
+    <br/><br/>
+    Customer Details: <br/>
+    {{customer?.firstName}} {{customer?.middleName}} {{customer?.lastName}}
+  `,
 })
-export class CustomerUpdateComponent implements OnInit {
+export class CustomerDeleteComponent implements OnInit {
 
   customerId: Number
   customer: Customer

@@ -3,14 +3,13 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CustomerListComponent } from './customer/customer-list/customer-list.component';
-import { CustomerService } from 'src/services/customer.service';
+import { CustomerListComponent } from './customer/customer-list.component';
+import { CustomerViewComponent } from './customer/customer-view.component';
+import { CustomerCreateComponent } from './customer/customer-create.component';
+import { CustomerUpdateComponent } from './customer/customer-update.component';
+import { CustomerDeleteComponent } from './customer/customer-delete.component';
 import { HttpClientModule } from '@angular/common/http';
-import { CustomerViewComponent } from './customer/customer-view/customer-view.component';
-import { CustomerCreateComponent } from './customer/customer-create/customer-create.component';
-import { CustomerUpdateComponent } from './customer/customer-update/customer-update.component';
-import { CustomerDeleteComponent } from './customer/customer-delete/customer-delete.component';
-
+import { CustomerService } from 'src/services/customer.service';
 
 @NgModule({
   declarations: [
@@ -19,7 +18,7 @@ import { CustomerDeleteComponent } from './customer/customer-delete/customer-del
     CustomerViewComponent,
     CustomerCreateComponent,
     CustomerUpdateComponent,
-    CustomerDeleteComponent,
+    CustomerDeleteComponent
   ],
   imports: [
     BrowserModule,

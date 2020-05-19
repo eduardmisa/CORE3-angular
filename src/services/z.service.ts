@@ -39,10 +39,10 @@ export class GenericService<T> {
 
     return this.http.get<PaginatedResponse<T>>(this.url, {
       params: new HttpParams()
-      .set('filter', pagination.filter ? pagination.filter : null)
-      .set('sortOrder', pagination.sortOrder ? pagination.sortOrder : null)
-      .set('pageNumber', pagination.pageNumber ? pagination.pageNumber.toString() : null)
-      .set('pageSize', pagination.pageSize ? pagination.pageSize.toString() : null)
+      .set('filter', pagination.filter ? pagination.filter : '')
+      .set('sortOrder', pagination.sortOrder ? pagination.sortOrder : '')
+      .set('pageNumber', pagination.pageNumber ? pagination.pageNumber.toString() : '')
+      .set('pageSize', pagination.pageSize ? pagination.pageSize.toString() : '')
     })
   }
   retreive (slug: string) {

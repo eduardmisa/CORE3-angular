@@ -4,11 +4,20 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Customer } from 'src/interfaces/customer.interface';
 
 @Component({
-  selector: 'app-customer-view',
-  templateUrl: './customer-view.component.html',
-  styleUrls: ['./customer-view.component.css']
+  selector: 'app-customer-update',
+  template: `
+    <button (click)="backToList()">Back to list</button>
+    <br/>
+    slug:
+    {{customerId}}
+
+    <br/><br/>
+    Customer Details: <br/>
+    {{customer?.firstName}} {{customer?.middleName}} {{customer?.lastName}}
+
+  `,
 })
-export class CustomerViewComponent implements OnInit {
+export class CustomerUpdateComponent implements OnInit {
 
   customerId: Number
   customer: Customer
@@ -17,14 +26,13 @@ export class CustomerViewComponent implements OnInit {
     this.route.params.subscribe(({id}) => this.customerId = id);
    }
 
-   backToList () {
-    this.router.navigateByUrl(`/customers`)
-   }
-
   ngOnInit(): void {
     this.fetchCustomers()
   }
 
+  backToList () {
+    this.router.navigateByUrl(`/customers`)
+  }
   fetchCustomers () {
     this.svcCustomer.retreive(this.customerId.toString()).subscribe(item => {
       this.customer = item

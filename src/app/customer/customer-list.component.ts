@@ -7,8 +7,21 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customer-list',
-  templateUrl: './customer-list.component.html',
-  styleUrls: ['./customer-list.component.css']
+  template: `
+    <button (click)="createCustomer()">Create Customer</button>
+
+    <ul>
+        <li *ngFor="let item of customerList">
+            <button (click)="viewCustomer(item.id)">{{item.id}}</button>
+            {{item.firstName}}&nbsp;{{item.middleName}}&nbsp;{{item.lastName}}
+            [
+            <strong><a (click)="updateCustomer(item.id)">update</a></strong>
+            | 
+            <strong><a (click)="deleteCustomer(item.id)">delete</a></strong>
+            ]
+        </li>
+    </ul>
+  `,
 })
 export class CustomerListComponent implements OnInit {
 
@@ -17,11 +30,11 @@ export class CustomerListComponent implements OnInit {
   customerList: Customer[] = []
 
   ngOnInit(): void {
-    this.populateCustomers({})
+    this.populateCustomers()
   }
 
-  populateCustomers (payload) {
-    this.svcCustomer.get(new PaginationQuery(payload ? payload.pageIndex+1 : 0, payload ? payload.pageSize : 0, null, null))
+  populateCustomers () {
+    this.svcCustomer.get(new PaginationQuery(0, 0, '', ''))
     .subscribe((data: PaginatedResponse<Customer>) => {
 
       this.customerList = data.results
