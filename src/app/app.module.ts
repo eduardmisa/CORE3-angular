@@ -3,34 +3,32 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CustomerListComponent } from './customer/customer-list/customer-list.component';
+import { CustomerService } from 'src/services/customer.service';
+import { HttpClientModule } from '@angular/common/http';
+import { CustomerViewComponent } from './customer/customer-view/customer-view.component';
+import { CustomerCreateComponent } from './customer/customer-create/customer-create.component';
+import { CustomerUpdateComponent } from './customer/customer-update/customer-update.component';
+import { CustomerDeleteComponent } from './customer/customer-delete/customer-delete.component';
 
-import { MaterialWrapperModule } from './material-module'
-
-import { NavTopComponent } from './shared/components/nav-top/nav-top.component';
-import { NavSideLeftComponent } from './shared/components/nav-side-left/nav-side-left.component';
-import { FooterComponent } from './shared/components/footer/footer.component';
-
-import { CustomerModule } from './pages/customer/index'
-
-// APP MODULES
 
 @NgModule({
   declarations: [
     AppComponent,
-
-    NavTopComponent,
-    NavSideLeftComponent,
-    FooterComponent
+    CustomerListComponent,
+    CustomerViewComponent,
+    CustomerCreateComponent,
+    CustomerUpdateComponent,
+    CustomerDeleteComponent,
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MaterialWrapperModule,
-    CustomerModule
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    CustomerService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

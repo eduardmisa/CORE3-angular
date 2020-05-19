@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,10 +6,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'CORE3Angular';
-  @Input() leftDrawer: Boolean = false
-
-  // toggleDrawer () {
-  //   this.leftDrawer = !this.leftDrawer
-  // }
+  title = 'CORE3-angular9';
 }
