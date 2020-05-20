@@ -1,4 +1,4 @@
-FROM node:10.7
+FROM node:12.16.1
 
 ENV HOST 0.0.0.0
 
