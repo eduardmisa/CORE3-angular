@@ -1,94 +1,105 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CustomerService } from 'src/services/customer.service';
-import { PaginationQuery } from 'src/services/z.service';
-import { PaginatedResponse } from 'src/interfaces/paginated.response';
+// import { PaginationQuery } from 'src/services/z.service';
+// import { PaginatedResponse } from 'src/interfaces/paginated.response';
 import { Customer } from 'src/interfaces/customer.interface';
 import { Router } from '@angular/router';
 import mockData from 'src/assets/mockCustomers'
 
+import {MatSort} from '@angular/material/sort';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+
 @Component({
   selector: 'app-customer-list',
   template: `
+    <mat-card style="margin:1%;">
+      <mat-card-title>
+        Customer List
+      </mat-card-title>
+      <mat-card-subtitle>
+        Lorem ipsum dolor imet kadagu.
+      </mat-card-subtitle>
 
-    <div class="overflow-x-auto mt-6 container mx-auto">
+      <mat-card-content>
+        <button mat-button color="primary" (click)="this.createCustomer()"><mat-icon>add</mat-icon>New Customer</button>
 
-      <button
-        (click)="createCustomer()"
-        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-        >
-        Create Customer
-      </button>
+        <table mat-table [dataSource]="dataSource" matSort style="width:100%;">
 
-      <table class="table-auto border-collapse w-full mt-3">
-        <thead>
-          <tr class="rounded-lg text-sm font-medium text-gray-700 text-left">
-            <th class="px-4 py-6 bg-gray-200 uppercase">Id</th>
-            <th class="px-4 py-6 bg-gray-200 uppercase">Firstname</th>
-            <th class="px-4 py-6 bg-gray-200 uppercase">Middlename</th>
-            <th class="px-4 py-6 bg-gray-200 uppercase">Lastname</th>
-            <th class="px-4 py-6 bg-gray-200 uppercase">Created</th>
-            <th class="px-4 py-6 bg-gray-200 uppercase">CreatedBy</th>
-            <th class="px-4 py-6 bg-gray-200 uppercase">Modified</th>
-            <th class="px-4 py-6 bg-gray-200 uppercase">ModifiedBy</th>
-            <th class="px-4 py-6 bg-gray-200 uppercase text-center">Actions</th>
-          </tr>
-        </thead>
-        <tbody class="text-sm font-normal text-gray-700">
-          <tr
-            *ngFor="let item of customerList"
-            class="hover:bg-gray-100 border-b border-gray-200 py-10"
-            >
-            <td class="px-4 py-4">{{item.id}}</td>
-            <td class="px-4 py-4">{{item.firstName}}</td>
-            <td class="px-4 py-4">{{item.middleName}}</td>
-            <td class="px-4 py-4">{{item.lastName}}</td>
-            <td class="px-4 py-4">{{item.created}}</td>
-            <td class="px-4 py-4">{{item.createdBy}}</td>
-            <td class="px-4 py-4">{{item.modified}}</td>
-            <td class="px-4 py-4">{{item.modifiedBy}}</td>
-            <td class="px-4 py-4">
-              <div class="flex flex-row space-x-2">
-                <button
-                    (click)="viewCustomer(item.id)"
-                    class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-                    >
-                    View
-                </button>
-                <button
-                  (click)="updateCustomer(item.id)"
-                  class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-                  >
-                  Update
-                </button>
-                <button
-                  (click)="deleteCustomer(item.id)"
-                  class="bg-transparent hover:bg-red-700 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-                  >
-                  Delete
-                </button>
-              </div>
+          <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Firstname </th>
+            <td mat-cell *matCellDef="let item"> {{item.firstName}} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="middleName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Middlename </th>
+            <td mat-cell *matCellDef="let item"> {{item.middleName}} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="lastName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Lastname </th>
+            <td mat-cell *matCellDef="let item"> {{item.lastName}} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="created">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Created </th>
+            <td mat-cell *matCellDef="let item"> {{item.created}} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="createdBy">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> CreatedBy </th>
+            <td mat-cell *matCellDef="let item"> {{item.createdBy}} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="modified">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Modified </th>
+            <td mat-cell *matCellDef="let item"> {{item.modified}} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="modifiedBy">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ModifiedBy </th>
+            <td mat-cell *matCellDef="let item"> {{item.modifiedBy}} </td>
+          </ng-container>
+        
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let item">
+              <mat-menu #matMenu="matMenu">
+                <ng-template matMenuContent>
+                  <button mat-menu-item (click)="this.viewCustomer(item.id)">View</button>
+                  <button mat-menu-item (click)="this.deleteCustomer(item.id)">Delete</button>
+                </ng-template>
+              </mat-menu>
+              <button mat-icon-button [matMenuTriggerFor]="matMenu"><mat-icon>more_vert</mat-icon></button>
             </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+          </ng-container>
+        
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
 
+        <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+      </mat-card-content>
+    </mat-card>
   `,
 })
 export class CustomerListComponent implements OnInit {
 
   constructor(private svcCustomer: CustomerService, private router: Router) { }
 
-  customerList: Customer[] = []
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  displayedColumns: string[] = ['firstName', 'middleName', 'lastName', 'created', 'createdBy', 'modified', 'modifiedBy', 'id']
+  dataSource = new MatTableDataSource<Customer>()
 
   ngOnInit(): void {
     this.populateCustomers()
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   populateCustomers () {
-    var mock = mockData
-
-    this.customerList = mock.results.slice(0, 10)
+    this.dataSource = new MatTableDataSource<Customer>(mockData.results);
 
     // this.svcCustomer.get(new PaginationQuery(0, 0, '', ''))
     // .subscribe((data: PaginatedResponse<Customer>) => {

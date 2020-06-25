@@ -1,4 +1,4 @@
-# CORE3Angularv9
+# COREAngular10
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.6.
 
@@ -28,7 +28,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Used CLI Command
 
-ng new CORE3-angularv9 -s -t --minimal --routing -g -S --strict --style=scss --verbose
+ng new CORE-angular10 -s -t --minimal --routing -g -S --strict --style=scss --verbose
 
 ## Enabled SSR using:
 

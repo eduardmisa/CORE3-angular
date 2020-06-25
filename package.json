@@ -1,5 +1,5 @@
 {
-  "name": "core3-angularv9",
+  "name": "core-angular10",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -8,18 +8,20 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "dev:ssr": "ng run CORE3-angularv9:serve-ssr",
-    "serve:ssr": "node dist/CORE3-angularv9/server/main.js",
-    "build:ssr": "ng build --prod && ng run CORE3-angularv9:server:production",
-    "prerender": "ng run CORE3-angularv9:prerender"
+    "dev:ssr": "ng run CORE-angular10:serve-ssr",
+    "serve:ssr": "node dist/CORE-angular10/server/main.js",
+    "build:ssr": "ng build --prod && ng run CORE-angular10:server:production",
+    "prerender": "ng run CORE-angular10:prerender"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "~10.0.0",
+    "@angular/cdk": "^10.0.0",
     "@angular/common": "~10.0.0",
     "@angular/compiler": "~10.0.0",
     "@angular/core": "~10.0.0",
     "@angular/forms": "~10.0.0",
+    "@angular/material": "^10.0.0",
     "@angular/platform-browser": "~10.0.0",
     "@angular/platform-browser-dynamic": "~10.0.0",
     "@angular/platform-server": "~10.0.0",
@@ -41,7 +43,6 @@
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
     "postcss-scss": "^2.1.1",
-    "tailwindcss": "^1.4.6",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~3.9.5"

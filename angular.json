@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "CORE3-angularv9": {
+    "CORE-angular10": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -41,7 +41,7 @@
         "build": {
           "builder": "@angular-builders/custom-webpack:browser",
           "options": {
-            "outputPath": "dist/CORE3-angularv9/browser",
+            "outputPath": "dist/CORE-angular10/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -52,12 +52,10 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.scss"
             ],
-            "scripts": [],
-            "customWebpackConfig": {
-              "path": "./webpack.config.js"
-            }
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -93,27 +91,24 @@
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "CORE3-angularv9:build",
-            "customWebpackConfig": {
-              "path": "./webpack.config.js"
-            }
+            "browserTarget": "CORE-angular10:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "CORE3-angularv9:build:production"
+              "browserTarget": "CORE-angular10:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "CORE3-angularv9:build"
+            "browserTarget": "CORE-angular10:build"
           }
         },
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": "dist/CORE3-angularv9/server",
+            "outputPath": "dist/CORE-angular10/server",
             "main": "server.ts",
             "tsConfig": "tsconfig.server.json"
           },
@@ -134,21 +129,21 @@
         "serve-ssr": {
           "builder": "@nguniversal/builders:ssr-dev-server",
           "options": {
-            "browserTarget": "CORE3-angularv9:build",
-            "serverTarget": "CORE3-angularv9:server"
+            "browserTarget": "CORE-angular10:build",
+            "serverTarget": "CORE-angular10:server"
           },
           "configurations": {
             "production": {
-              "browserTarget": "CORE3-angularv9:build:production",
-              "serverTarget": "CORE3-angularv9:server:production"
+              "browserTarget": "CORE-angular10:build:production",
+              "serverTarget": "CORE-angular10:server:production"
             }
           }
         },
         "prerender": {
           "builder": "@nguniversal/builders:prerender",
           "options": {
-            "browserTarget": "CORE3-angularv9:build:production",
-            "serverTarget": "CORE3-angularv9:server:production",
+            "browserTarget": "CORE-angular10:build:production",
+            "serverTarget": "CORE-angular10:server:production",
             "routes": [
               "/"
             ]
@@ -160,7 +155,7 @@
       }
     }
   },
-  "defaultProject": "CORE3-angularv9",
+  "defaultProject": "CORE-angular10",
   "cli": {
     "analytics": false
   }
