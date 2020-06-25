@@ -67,12 +67,20 @@ import { PermissionUpdateComponent } from './permission/permission-update.compon
 import { PermissionDeleteComponent } from './permission/permission-delete.component';
 
 
+import { GroupListComponent } from './group/group-list.component';
+import { GroupViewComponent } from './group/group-view.component';
+import { GroupCreateComponent } from './group/group-create.component';
+import { GroupUpdateComponent } from './group/group-update.component';
+import { GroupDeleteComponent } from './group/group-delete.component';
+
+
 
 
 import { HttpClientModule } from '@angular/common/http';
 import { ServiceService } from 'src/services/service.service';
 import { ServiceRouteService } from 'src/services/service.route.service';
 import { PermissionService } from 'src/services/permission.service';
+import { GroupService } from 'src/services/group.service';
 
 @NgModule({
   declarations: [
@@ -95,6 +103,12 @@ import { PermissionService } from 'src/services/permission.service';
     PermissionCreateComponent,
     PermissionUpdateComponent,
     PermissionDeleteComponent,
+
+    GroupListComponent,
+    GroupViewComponent,
+    GroupCreateComponent,
+    GroupUpdateComponent,
+    GroupDeleteComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -140,7 +154,8 @@ import { PermissionService } from 'src/services/permission.service';
   providers: [
     ServiceService,
     ServiceRouteService,
-    PermissionService
+    PermissionService,
+    GroupService
   ],
   bootstrap: [AppComponent]
 })

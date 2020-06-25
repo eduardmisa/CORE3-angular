@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   template: `
     <mat-card style="margin:20px;width:300px">
       <mat-card-title>
-        Service Details
+        Service Create
       </mat-card-title>
       <mat-card-subtitle>
         Lorem ipsum dolor imet kadagu.

@@ -19,6 +19,12 @@ import { PermissionCreateComponent } from './permission/permission-create.compon
 import { PermissionUpdateComponent } from './permission/permission-update.component';
 import { PermissionDeleteComponent } from './permission/permission-delete.component';
 
+import { GroupListComponent } from './group/group-list.component';
+import { GroupViewComponent } from './group/group-view.component';
+import { GroupCreateComponent } from './group/group-create.component';
+import { GroupUpdateComponent } from './group/group-update.component';
+import { GroupDeleteComponent } from './group/group-delete.component';
+
 
 const routes: Routes = [
   { path: 'services', component: ServiceListComponent },
@@ -38,6 +44,12 @@ const routes: Routes = [
   { path: 'permissions/create', component: PermissionCreateComponent },
   { path: 'permissions/update/:id', component: PermissionUpdateComponent },
   { path: 'permissions/delete/:id', component: PermissionDeleteComponent },
+
+  { path: 'groups', component: GroupListComponent },
+  { path: 'groups/view/:id', component: GroupViewComponent },
+  { path: 'groups/create', component: GroupCreateComponent },
+  { path: 'groups/update/:id', component: GroupUpdateComponent },
+  { path: 'groups/delete/:id', component: GroupDeleteComponent },  
 ];
 
 @NgModule({
