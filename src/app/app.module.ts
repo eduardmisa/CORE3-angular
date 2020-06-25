@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
 //Angular Material Components
@@ -44,6 +45,7 @@ import { AppComponent } from './app.component';
 import { AppSideBarComponent } from './app.sidebar.component';
 import { AppTopBarComponent } from './app.topbar.component';
 
+
 import { ServiceListComponent } from './service/service-list.component';
 import { ServiceViewComponent } from './service/service-view.component';
 import { ServiceCreateComponent } from './service/service-create.component';
@@ -58,11 +60,19 @@ import { ServiceRouteUpdateComponent } from './service-route/service-route-updat
 import { ServiceRouteDeleteComponent } from './service-route/service-route-delete.component';
 
 
+import { PermissionListComponent } from './permission/permission-list.component';
+import { PermissionViewComponent } from './permission/permission-view.component';
+import { PermissionCreateComponent } from './permission/permission-create.component';
+import { PermissionUpdateComponent } from './permission/permission-update.component';
+import { PermissionDeleteComponent } from './permission/permission-delete.component';
+
+
 
 
 import { HttpClientModule } from '@angular/common/http';
 import { ServiceService } from 'src/services/service.service';
 import { ServiceRouteService } from 'src/services/service.route.service';
+import { PermissionService } from 'src/services/permission.service';
 
 @NgModule({
   declarations: [
@@ -79,11 +89,20 @@ import { ServiceRouteService } from 'src/services/service.route.service';
     ServiceRouteCreateComponent,
     ServiceRouteUpdateComponent,
     ServiceRouteDeleteComponent,
+
+    PermissionListComponent,
+    PermissionViewComponent,
+    PermissionCreateComponent,
+    PermissionUpdateComponent,
+    PermissionDeleteComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     HttpClientModule,
     AppRoutingModule,
+
+    FormsModule,
+    ReactiveFormsModule,
 
     BrowserAnimationsModule,
     MatCheckboxModule,
@@ -120,7 +139,8 @@ import { ServiceRouteService } from 'src/services/service.route.service';
   ],
   providers: [
     ServiceService,
-    ServiceRouteService
+    ServiceRouteService,
+    PermissionService
   ],
   bootstrap: [AppComponent]
 })

@@ -13,6 +13,12 @@ import { ServiceRouteCreateComponent } from './service-route/service-route-creat
 import { ServiceRouteUpdateComponent } from './service-route/service-route-update.component';
 import { ServiceRouteDeleteComponent } from './service-route/service-route-delete.component';
 
+import { PermissionListComponent } from './permission/permission-list.component';
+import { PermissionViewComponent } from './permission/permission-view.component';
+import { PermissionCreateComponent } from './permission/permission-create.component';
+import { PermissionUpdateComponent } from './permission/permission-update.component';
+import { PermissionDeleteComponent } from './permission/permission-delete.component';
+
 
 const routes: Routes = [
   { path: 'services', component: ServiceListComponent },
@@ -26,6 +32,12 @@ const routes: Routes = [
   { path: 'service-routes/create', component: ServiceRouteCreateComponent },
   { path: 'service-routes/update/:id', component: ServiceRouteUpdateComponent },
   { path: 'service-routes/delete/:id', component: ServiceRouteDeleteComponent },
+
+  { path: 'permissions', component: PermissionListComponent },
+  { path: 'permissions/view/:id', component: PermissionViewComponent },
+  { path: 'permissions/create', component: PermissionCreateComponent },
+  { path: 'permissions/update/:id', component: PermissionUpdateComponent },
+  { path: 'permissions/delete/:id', component: PermissionDeleteComponent },
 ];
 
 @NgModule({
