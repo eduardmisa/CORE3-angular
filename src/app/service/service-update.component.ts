@@ -8,7 +8,7 @@ import { ServiceRead, ServiceUpdateRequest, ServiceUpdateResponse } from 'src/in
   template: `
     <mat-card style="margin:20px;width:300px">
       <mat-card-title>
-        Service Details
+        Service Update
       </mat-card-title>
       <mat-card-subtitle>
         Lorem ipsum dolor imet kadagu.

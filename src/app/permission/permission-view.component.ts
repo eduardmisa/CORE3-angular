@@ -67,7 +67,12 @@ import { PermissionRead,
 
         </mat-card>
 
-        <mat-card class="mat-elevation-z0">
+        <mat-checkbox class="w-full" [(ngModel)]="permission.hasAllAccess">Has all access</mat-checkbox>
+
+        <br>
+        <br>
+
+        <mat-card class="mat-elevation-z0" *ngIf="!permission.hasAllAccess">
           <mat-card-subtitle>
             Service Routes
           </mat-card-subtitle>
