@@ -12,8 +12,8 @@ RUN npm install
 
 COPY . /usr/src/app
 
-RUN npm run build
+RUN npm run build:ssr
 
 EXPOSE 6000
 
-CMD ["npm run start"]
+CMD ["npm run serve:ssr"]
