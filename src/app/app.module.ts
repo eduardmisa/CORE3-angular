@@ -50,8 +50,19 @@ import { ServiceCreateComponent } from './service/service-create.component';
 import { ServiceUpdateComponent } from './service/service-update.component';
 import { ServiceDeleteComponent } from './service/service-delete.component';
 
+
+import { ServiceRouteListComponent } from './service-route/service-route-list.component';
+import { ServiceRouteViewComponent } from './service-route/service-route-view.component';
+import { ServiceRouteCreateComponent } from './service-route/service-route-create.component';
+import { ServiceRouteUpdateComponent } from './service-route/service-route-update.component';
+import { ServiceRouteDeleteComponent } from './service-route/service-route-delete.component';
+
+
+
+
 import { HttpClientModule } from '@angular/common/http';
 import { ServiceService } from 'src/services/service.service';
+import { ServiceRouteService } from 'src/services/service.route.service';
 
 @NgModule({
   declarations: [
@@ -62,6 +73,12 @@ import { ServiceService } from 'src/services/service.service';
     ServiceCreateComponent,
     ServiceUpdateComponent,
     ServiceDeleteComponent,
+
+    ServiceRouteListComponent,
+    ServiceRouteViewComponent,
+    ServiceRouteCreateComponent,
+    ServiceRouteUpdateComponent,
+    ServiceRouteDeleteComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -102,7 +119,8 @@ import { ServiceService } from 'src/services/service.service';
     MatPaginatorModule
   ],
   providers: [
-    ServiceService
+    ServiceService,
+    ServiceRouteService
   ],
   bootstrap: [AppComponent]
 })

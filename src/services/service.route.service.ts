@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { GenericService } from './z.service';
 
 @Injectable()
-export class ServiceService extends GenericService {
+export class ServiceRouteService extends GenericService {
   constructor(http: HttpClient) {
-    super(http, '/api/v1/Services/')
+    super(http, '/api/v1/ServiceRoutes/')
    }
 }

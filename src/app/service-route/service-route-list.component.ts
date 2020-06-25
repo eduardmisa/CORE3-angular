@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ServiceService } from 'src/services/service.service';
+import { ServiceRouteService } from 'src/services/service.route.service';
 import { PaginationQuery } from 'src/services/z.service';
 import { PaginatedResponse } from 'src/interfaces/paginated.response';
-import { ServiceList } from 'src/interfaces/service.interface';
+import { ServiceRouteList } from 'src/interfaces/service.route.interface';
 
 import { Router } from '@angular/router';
 
@@ -15,7 +15,7 @@ import {MatTableDataSource} from '@angular/material/table';
   template: `
     <mat-card style="margin:20px;width:700px">
       <mat-card-title>
-        Service List
+        Service Route List
       </mat-card-title>
       <mat-card-subtitle>
         Lorem ipsum dolor imet kadagu.
@@ -26,19 +26,19 @@ import {MatTableDataSource} from '@angular/material/table';
 
         <table mat-table [dataSource]="dataSource" matSort style="width:100%;">
 
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-            <td mat-cell *matCellDef="let item"> {{item.name}} </td>
+          <ng-container matColumnDef="url">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Url </th>
+            <td mat-cell *matCellDef="let item"> {{item.url}} </td>
           </ng-container>
 
-          <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
-            <td mat-cell *matCellDef="let item"> {{item.description}} </td>
+          <ng-container matColumnDef="method">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Method </th>
+            <td mat-cell *matCellDef="let item"> {{item.method}} </td>
           </ng-container>
 
-          <ng-container matColumnDef="baseUrl">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Base Url </th>
-            <td mat-cell *matCellDef="let item"> {{item.baseUrl}} </td>
+          <ng-container matColumnDef="service">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Service </th>
+            <td mat-cell *matCellDef="let item"> {{item.service}} </td>
           </ng-container>
         
           <ng-container matColumnDef="code">
@@ -64,13 +64,13 @@ import {MatTableDataSource} from '@angular/material/table';
     </mat-card>
   `,
 })
-export class ServiceListComponent implements OnInit {
-  constructor(private svcService: ServiceService, private router: Router) { }
+export class ServiceRouteListComponent implements OnInit {
+  constructor(private svcServiceRoute: ServiceRouteService, private router: Router) { }
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  displayedColumns: string[] = ['name', 'description', 'baseUrl', 'code']
-  dataSource = new MatTableDataSource<ServiceList>()
+  displayedColumns: string[] = ['url', 'method', 'service', 'code']
+  dataSource = new MatTableDataSource<ServiceRouteList>()
 
   ngOnInit(): void {
     this.populateServices()
@@ -79,22 +79,22 @@ export class ServiceListComponent implements OnInit {
   }
 
   populateServices () {
-    this.svcService.get(new PaginationQuery(0, 0, '', ''))
-    .subscribe((data: PaginatedResponse<ServiceList>) => {
-      this.dataSource = new MatTableDataSource<ServiceList>(data.results);
+    this.svcServiceRoute.get(new PaginationQuery(0, 0, '', ''))
+    .subscribe((data: PaginatedResponse<ServiceRouteList>) => {
+      this.dataSource = new MatTableDataSource<ServiceRouteList>(data.results);
     })
   }
 
   view (id: number) {
-    this.router.navigateByUrl(`/services/view/${id}`)
+    this.router.navigateByUrl(`/service-routes/view/${id}`)
   }
   create () {
-    this.router.navigateByUrl(`/services/create`)
+    this.router.navigateByUrl(`/service-routes/create`)
   }
   update (id: number) {
-    this.router.navigateByUrl(`/services/update/${id}`)
+    this.router.navigateByUrl(`/service-routes/update/${id}`)
   }
   delete (id: number) {
-    this.router.navigateByUrl(`/services/delete/${id}`)
+    this.router.navigateByUrl(`/service-routes/delete/${id}`)
   }
 }
