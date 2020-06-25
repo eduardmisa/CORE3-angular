@@ -9,6 +9,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
@@ -35,7 +36,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 
-
+import {MatNativeDateModule} from '@angular/material/core';
 
 
 
@@ -74,6 +75,11 @@ import { GroupUpdateComponent } from './group/group-update.component';
 import { GroupDeleteComponent } from './group/group-delete.component';
 
 
+import { UserListComponent } from './user/user-list.component';
+import { UserViewComponent } from './user/user-view.component';
+import { UserCreateComponent } from './user/user-create.component';
+import { UserUpdateComponent } from './user/user-update.component';
+import { UserDeleteComponent } from './user/user-delete.component';
 
 
 import { HttpClientModule } from '@angular/common/http';
@@ -81,6 +87,7 @@ import { ServiceService } from 'src/services/service.service';
 import { ServiceRouteService } from 'src/services/service.route.service';
 import { PermissionService } from 'src/services/permission.service';
 import { GroupService } from 'src/services/group.service';
+import { UserService } from 'src/services/user.service';
 
 @NgModule({
   declarations: [
@@ -109,6 +116,12 @@ import { GroupService } from 'src/services/group.service';
     GroupCreateComponent,
     GroupUpdateComponent,
     GroupDeleteComponent,
+
+    UserListComponent,
+    UserViewComponent,
+    UserCreateComponent,
+    UserUpdateComponent,
+    UserDeleteComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -149,13 +162,16 @@ import { GroupService } from 'src/services/group.service';
     MatSnackBarModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+
+    MatNativeDateModule
   ],
   providers: [
     ServiceService,
     ServiceRouteService,
     PermissionService,
-    GroupService
+    GroupService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

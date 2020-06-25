@@ -25,6 +25,12 @@ import { GroupCreateComponent } from './group/group-create.component';
 import { GroupUpdateComponent } from './group/group-update.component';
 import { GroupDeleteComponent } from './group/group-delete.component';
 
+import { UserListComponent } from './user/user-list.component';
+import { UserViewComponent } from './user/user-view.component';
+import { UserCreateComponent } from './user/user-create.component';
+import { UserUpdateComponent } from './user/user-update.component';
+import { UserDeleteComponent } from './user/user-delete.component';
+
 
 const routes: Routes = [
   { path: 'services', component: ServiceListComponent },
@@ -50,6 +56,12 @@ const routes: Routes = [
   { path: 'groups/create', component: GroupCreateComponent },
   { path: 'groups/update/:id', component: GroupUpdateComponent },
   { path: 'groups/delete/:id', component: GroupDeleteComponent },  
+
+  { path: 'users', component: UserListComponent },
+  { path: 'users/view/:id', component: UserViewComponent },
+  { path: 'users/create', component: UserCreateComponent },
+  { path: 'users/update/:id', component: UserUpdateComponent },
+  { path: 'users/delete/:id', component: UserDeleteComponent },  
 ];
 
 @NgModule({
