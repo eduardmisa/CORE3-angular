@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { PaginatedResponse } from 'src/interfaces/paginated.response';
 
 export class PaginationQuery {
@@ -10,8 +10,9 @@ export class PaginationQuery {
   }
 }
 
-export class GenericService<T> {
+export class GenericService{
 
+  token: string = "e76288afdeba4b2d826849b530aa30b8"
   apiHost: string
   url: string
 
@@ -24,41 +25,37 @@ export class GenericService<T> {
     this.url = `${this.apiHost}${baseUrl}`
   }
 
-  get (pagination: PaginationQuery) {
-
+  get<TResult> (pagination: PaginationQuery) {
     // let params = new HttpParams()
-
     // if (filter)     params.append('filter', filter)
     // if (sortOrder)  params.append('sortOrder', sortOrder)
     // if (pageNumber) params.append('pageNumber', pageNumber.toString())
     // if (pageSize)   params.append('pageSize', pageSize.toString())
-
     // return this.http.get<T[]>(this.url, {
     //   params
     // })
-
-    return this.http.get<PaginatedResponse<T>>(this.url, {
-      params: new HttpParams()
-      .set('filter', pagination.filter ? pagination.filter : '')
-      .set('sortOrder', pagination.sortOrder ? pagination.sortOrder : '')
-      .set('pageNumber', pagination.pageNumber ? pagination.pageNumber.toString() : '')
-      .set('pageSize', pagination.pageSize ? pagination.pageSize.toString() : '')
+    return this.http.get<PaginatedResponse<TResult>>(this.url, {
+      params: new HttpParams().set('filter', pagination.filter ? pagination.filter : '')
+                              .set('sortOrder', pagination.sortOrder ? pagination.sortOrder : '')
+                              .set('pageNumber', pagination.pageNumber ? pagination.pageNumber.toString() : '')
+                              .set('pageSize', pagination.pageSize ? pagination.pageSize.toString() : ''),
+      headers: new HttpHeaders().set("Authorization", `Bearer ${this.token}`)
     })
   }
-  retreive (slug: string) {
-    return this.http.get<T>(`${this.url}${slug}`);
+  retreive<TResult> (slug: string) {
+    return this.http.get<TResult>(`${this.url}${slug}`, { headers: new HttpHeaders().set("Authorization", `Bearer ${this.token}`)});
   }
-  post (body: T) {
-    return this.http.post<T>(this.url, body);
+  post<TResult,TRequest> (body: TRequest) {
+    return this.http.post<TResult>(this.url, body, { headers: new HttpHeaders().set("Authorization", `Bearer ${this.token}`)});
   }
-  put (slug: string, body: T) {
-    return this.http.put<T>(`${this.url}${slug}`, body);
+  put<TResult,TRequest> (slug: string, body: TRequest) {
+    return this.http.put<TResult>(`${this.url}${slug}`, body, { headers: new HttpHeaders().set("Authorization", `Bearer ${this.token}`)});
   }
-  patch (slug: string, body: T) {
-    return this.http.patch<T>(`${this.url}${slug}`, body);
+  patch<TResult,TRequest> (slug: string, body: TRequest) {
+    return this.http.patch<TResult>(`${this.url}${slug}`, body, { headers: new HttpHeaders().set("Authorization", `Bearer ${this.token}`)});
   }
-  delete (slug: string) {
-    return this.http.delete<T>(`${this.url}${slug}`);
+  delete<TResult> (slug: string) {
+    return this.http.delete<TResult>(`${this.url}${slug}`, { headers: new HttpHeaders().set("Authorization", `Bearer ${this.token}`)});
   }
 
 }

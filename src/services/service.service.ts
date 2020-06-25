@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GenericService } from './z.service';
-import { Customer } from 'src/interfaces/customer.interface'
+import { ServiceList } from 'src/interfaces/service.interface'
 
 @Injectable()
-export class CustomerService extends GenericService<Customer> {
+export class ServiceService extends GenericService {
   constructor(http: HttpClient) {
-    super(http, '/api/Customers/')
+    super(http, '/api/v1/Services/')
    }
 }

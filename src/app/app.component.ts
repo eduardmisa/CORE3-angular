@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 // modes: side, push, over
 
@@ -10,9 +10,13 @@ import {Component} from '@angular/core';
   `,
   styles: []
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'CORE-angular10';
   toggleState:boolean = false
+
+  ngOnInit () {
+    this.toggleState = true;
+  }
 
   onToggleSideBar () {
     this.toggleState = !this.toggleState

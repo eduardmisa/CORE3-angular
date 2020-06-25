@@ -44,22 +44,24 @@ import { AppComponent } from './app.component';
 import { AppSideBarComponent } from './app.sidebar.component';
 import { AppTopBarComponent } from './app.topbar.component';
 
-import { CustomerListComponent } from './customer/customer-list.component';
-import { CustomerViewComponent } from './customer/customer-view.component';
-import { CustomerCreateComponent } from './customer/customer-create.component';
-import { CustomerUpdateComponent } from './customer/customer-update.component';
-import { CustomerDeleteComponent } from './customer/customer-delete.component';
+import { ServiceListComponent } from './service/service-list.component';
+import { ServiceViewComponent } from './service/service-view.component';
+import { ServiceCreateComponent } from './service/service-create.component';
+import { ServiceUpdateComponent } from './service/service-update.component';
+import { ServiceDeleteComponent } from './service/service-delete.component';
+
 import { HttpClientModule } from '@angular/common/http';
-import { CustomerService } from 'src/services/customer.service';
+import { ServiceService } from 'src/services/service.service';
 
 @NgModule({
   declarations: [
     AppComponent,AppSideBarComponent,AppTopBarComponent,
-    CustomerListComponent,
-    CustomerViewComponent,
-    CustomerCreateComponent,
-    CustomerUpdateComponent,
-    CustomerDeleteComponent
+
+    ServiceListComponent,
+    ServiceViewComponent,
+    ServiceCreateComponent,
+    ServiceUpdateComponent,
+    ServiceDeleteComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -100,7 +102,7 @@ import { CustomerService } from 'src/services/customer.service';
     MatPaginatorModule
   ],
   providers: [
-    CustomerService
+    ServiceService
   ],
   bootstrap: [AppComponent]
 })
