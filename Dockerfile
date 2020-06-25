@@ -1,4 +1,4 @@
-FROM node:12.16.1
+FROM node:12.18.0
 
 ENV HOST 0.0.0.0
 
@@ -14,6 +14,6 @@ COPY . /usr/src/app
 
 RUN npm run build:ssr
 
-EXPOSE 4444
+EXPOSE 6000
 
 CMD ["npm run serve:ssr"]

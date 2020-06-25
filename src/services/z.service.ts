@@ -20,7 +20,7 @@ export class GenericService{
               private baseUrl: string) { 
     
     // TODO: Put this in config
-    this.apiHost = "http://localhost:5000"
+    this.apiHost = "https://netcore-api.u4rdsystem.com"
 
     this.url = `${this.apiHost}${baseUrl}`
   }

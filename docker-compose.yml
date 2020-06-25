@@ -1,11 +1,11 @@
 version: '3'
 services:
-  core3_angular:
-    image: core3_angular:latest
+  netcore_angular:
+    image: netcore_angular:latest
     build: .
     volumes:
-      - .:/core3_angular
+      - .:/netcore_angular
     ports:
-      - "4444:4000"
-    container_name: core3_angular
+      - "6000:4000"
+    container_name: netcore_angular
     restart: always
