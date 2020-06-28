@@ -18,4 +18,4 @@ COPY . /usr/src/app
 
 EXPOSE 6000
 
-CMD ["node dist/CORE-angular10/server/main.js"]
+CMD ["node","dist/CORE-angular10/server/main.js"]
