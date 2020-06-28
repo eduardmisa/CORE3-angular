@@ -1,7 +1,7 @@
-import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { PaginatedResponse } from 'src/interfaces/paginated.response';
-import { AuthService } from './auth.service';
+import { environment } from 'src/environments/environment';
+import { IsClient } from 'src/helpers/processHelper';
 
 export class PaginationQuery {
   constructor (public pageNumber: number,
@@ -12,20 +12,21 @@ export class PaginationQuery {
 }
 
 export class GenericService{
-  constructor(private http: HttpClient,
-              private baseUrl: string) {
+  constructor(private http: HttpClient, private baseUrl: string) {
     
     // TODO: Put this in config
-    // this.apiHost = "https://netcore-api.u4rdsystem.com"
-    this.apiHost = "http://localhost:5000"
+    this.apiHost = environment.API_HOST
+
     this.url = `${this.apiHost}${baseUrl}`
 
-    let cookieObject = (Object as any).fromEntries(document.cookie.split(/; */).map(c => {
-        const [ key, ...v ] = c.split('=');
-        return [ key, decodeURIComponent(v.join('=')) ];
-    }));
+    if (IsClient()) {
+      let cookieObject = (Object as any).fromEntries(document.cookie.split(/; */).map(c => {
+          const [ key, ...v ] = c.split('=');
+          return [ key, decodeURIComponent(v.join('=')) ];
+      }));
 
-    this.token = cookieObject.access_token
+      this.token = cookieObject.access_token
+    }
   }
 
   apiHost: string

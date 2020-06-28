@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { AuthService } from 'src/services/auth.service';
+import { IsServer } from 'src/helpers/processHelper';
 
 // modes: side, push, over
 
@@ -31,6 +32,10 @@ export class AppComponent implements OnInit {
   isAuthenticated = false
 
   ngOnInit () {
+    if (IsServer()) {
+      return
+    }
+
     this.svcAuth.FetchCurrentUser()
     .subscribe(
       data => {
