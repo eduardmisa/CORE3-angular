@@ -10,7 +10,7 @@ export class AuthGuardService implements CanActivate  {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
 
     if (IsServer()) {
-      return false
+      return true
     }
 
     let cookieObject = (Object as any).fromEntries(document.cookie.split(/; */).map(c => {
