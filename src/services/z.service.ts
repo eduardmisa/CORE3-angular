@@ -54,7 +54,7 @@ export class GenericService{
     return this.http.get<TResult>(`${this.url}${slug}`, { headers: new HttpHeaders().set("Authorization", `Bearer ${this.token}`)});
   }
   post<TResult,TRequest> (body: TRequest, slug?: string) {
-    return this.http.post<TResult>(`${this.url}${slug}`, body, { headers: new HttpHeaders().set("Authorization", `Bearer ${this.token}`)});
+    return this.http.post<TResult>(`${this.url}${slug ? slug : ''}`, body, { headers: new HttpHeaders().set("Authorization", `Bearer ${this.token}`)});
   }
   put<TResult,TRequest> (slug: string, body: TRequest) {
     return this.http.put<TResult>(`${this.url}${slug}`, body, { headers: new HttpHeaders().set("Authorization", `Bearer ${this.token}`)});
