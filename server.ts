@@ -39,12 +39,11 @@ export function app() {
 
 function run() {
   const port = process.env.PORT || 4000;
+  const host = "0.0.0.0"
 
   // Start up the Node server
   const server = app();
-  server.listen(port, () => {
-    console.log(`Node Express server listening on http://localhost:${port}`);
-  });
+  server.listen(port as number, host, () => { console.log(`Node Express server listening on http://${host}:${port}`); })
 }
 
 // Webpack will replace 'require' with '__webpack_require__'
