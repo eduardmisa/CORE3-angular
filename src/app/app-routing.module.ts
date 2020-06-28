@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { AuthGuardService } from '../../src/app/auth/can.activate'
+
+import { LoginComponent } from './auth/login.component';
+
 import { ServiceListComponent } from './service/service-list.component';
 import { ServiceViewComponent } from './service/service-view.component';
 import { ServiceCreateComponent } from './service/service-create.component';
@@ -33,35 +37,38 @@ import { UserDeleteComponent } from './user/user-delete.component';
 
 
 const routes: Routes = [
-  { path: 'services', component: ServiceListComponent },
-  { path: 'services/view/:id', component: ServiceViewComponent },
-  { path: 'services/create', component: ServiceCreateComponent },
-  { path: 'services/update/:id', component: ServiceUpdateComponent },
-  { path: 'services/delete/:id', component: ServiceDeleteComponent },
 
-  { path: 'service-routes', component: ServiceRouteListComponent },
-  { path: 'service-routes/view/:id', component: ServiceRouteViewComponent },
-  { path: 'service-routes/create', component: ServiceRouteCreateComponent },
-  { path: 'service-routes/update/:id', component: ServiceRouteUpdateComponent },
-  { path: 'service-routes/delete/:id', component: ServiceRouteDeleteComponent },
+  { path: 'login', component: LoginComponent },
 
-  { path: 'permissions', component: PermissionListComponent },
-  { path: 'permissions/view/:id', component: PermissionViewComponent },
-  { path: 'permissions/create', component: PermissionCreateComponent },
-  { path: 'permissions/update/:id', component: PermissionUpdateComponent },
-  { path: 'permissions/delete/:id', component: PermissionDeleteComponent },
+  { path: 'services', component: ServiceListComponent, canActivate: [ AuthGuardService ] },
+  { path: 'services/view/:id', component: ServiceViewComponent, canActivate: [ AuthGuardService ] },
+  { path: 'services/create', component: ServiceCreateComponent, canActivate: [ AuthGuardService ] },
+  { path: 'services/update/:id', component: ServiceUpdateComponent, canActivate: [ AuthGuardService ] },
+  { path: 'services/delete/:id', component: ServiceDeleteComponent, canActivate: [ AuthGuardService ] },
 
-  { path: 'groups', component: GroupListComponent },
-  { path: 'groups/view/:id', component: GroupViewComponent },
-  { path: 'groups/create', component: GroupCreateComponent },
-  { path: 'groups/update/:id', component: GroupUpdateComponent },
-  { path: 'groups/delete/:id', component: GroupDeleteComponent },  
+  { path: 'service-routes', component: ServiceRouteListComponent, canActivate: [ AuthGuardService ] },
+  { path: 'service-routes/view/:id', component: ServiceRouteViewComponent, canActivate: [ AuthGuardService ] },
+  { path: 'service-routes/create', component: ServiceRouteCreateComponent, canActivate: [ AuthGuardService ] },
+  { path: 'service-routes/update/:id', component: ServiceRouteUpdateComponent, canActivate: [ AuthGuardService ] },
+  { path: 'service-routes/delete/:id', component: ServiceRouteDeleteComponent, canActivate: [ AuthGuardService ] },
 
-  { path: 'users', component: UserListComponent },
-  { path: 'users/view/:id', component: UserViewComponent },
-  { path: 'users/create', component: UserCreateComponent },
-  { path: 'users/update/:id', component: UserUpdateComponent },
-  { path: 'users/delete/:id', component: UserDeleteComponent },  
+  { path: 'permissions', component: PermissionListComponent, canActivate: [ AuthGuardService ] },
+  { path: 'permissions/view/:id', component: PermissionViewComponent, canActivate: [ AuthGuardService ] },
+  { path: 'permissions/create', component: PermissionCreateComponent, canActivate: [ AuthGuardService ] },
+  { path: 'permissions/update/:id', component: PermissionUpdateComponent, canActivate: [ AuthGuardService ] },
+  { path: 'permissions/delete/:id', component: PermissionDeleteComponent, canActivate: [ AuthGuardService ] },
+
+  { path: 'groups', component: GroupListComponent, canActivate: [ AuthGuardService ] },
+  { path: 'groups/view/:id', component: GroupViewComponent, canActivate: [ AuthGuardService ] },
+  { path: 'groups/create', component: GroupCreateComponent, canActivate: [ AuthGuardService ] },
+  { path: 'groups/update/:id', component: GroupUpdateComponent, canActivate: [ AuthGuardService ] },
+  { path: 'groups/delete/:id', component: GroupDeleteComponent, canActivate: [ AuthGuardService ] },  
+
+  { path: 'users', component: UserListComponent, canActivate: [ AuthGuardService ] },
+  { path: 'users/view/:id', component: UserViewComponent, canActivate: [ AuthGuardService ] },
+  { path: 'users/create', component: UserCreateComponent, canActivate: [ AuthGuardService ] },
+  { path: 'users/update/:id', component: UserUpdateComponent, canActivate: [ AuthGuardService ] },
+  { path: 'users/delete/:id', component: UserDeleteComponent, canActivate: [ AuthGuardService ] },  
 ];
 
 @NgModule({

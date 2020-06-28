@@ -47,6 +47,9 @@ import { AppSideBarComponent } from './app.sidebar.component';
 import { AppTopBarComponent } from './app.topbar.component';
 
 
+import { LoginComponent } from './auth/login.component';
+
+
 import { ServiceListComponent } from './service/service-list.component';
 import { ServiceViewComponent } from './service/service-view.component';
 import { ServiceCreateComponent } from './service/service-create.component';
@@ -83,15 +86,19 @@ import { UserDeleteComponent } from './user/user-delete.component';
 
 
 import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from 'src/services/auth.service';
 import { ServiceService } from 'src/services/service.service';
 import { ServiceRouteService } from 'src/services/service.route.service';
 import { PermissionService } from 'src/services/permission.service';
 import { GroupService } from 'src/services/group.service';
 import { UserService } from 'src/services/user.service';
+import { AuthGuardService } from './auth/can.activate';
 
 @NgModule({
   declarations: [
     AppComponent,AppSideBarComponent,AppTopBarComponent,
+
+    LoginComponent,
 
     ServiceListComponent,
     ServiceViewComponent,
@@ -167,6 +174,9 @@ import { UserService } from 'src/services/user.service';
     MatNativeDateModule
   ],
   providers: [
+    AuthGuardService,
+    
+    AuthService,
     ServiceService,
     ServiceRouteService,
     PermissionService,

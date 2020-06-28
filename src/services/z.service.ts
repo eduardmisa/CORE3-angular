@@ -1,6 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { PaginatedResponse } from 'src/interfaces/paginated.response';
+import { AuthService } from './auth.service';
 
 export class PaginationQuery {
   constructor (public pageNumber: number,
@@ -11,19 +12,25 @@ export class PaginationQuery {
 }
 
 export class GenericService{
-
-  token: string = "e76288afdeba4b2d826849b530aa30b8"
-  apiHost: string
-  url: string
-
   constructor(private http: HttpClient,
-              private baseUrl: string) { 
+              private baseUrl: string) {
     
     // TODO: Put this in config
-    this.apiHost = "https://netcore-api.u4rdsystem.com"
-
+    // this.apiHost = "https://netcore-api.u4rdsystem.com"
+    this.apiHost = "http://localhost:5000"
     this.url = `${this.apiHost}${baseUrl}`
+
+    let cookieObject = (Object as any).fromEntries(document.cookie.split(/; */).map(c => {
+        const [ key, ...v ] = c.split('=');
+        return [ key, decodeURIComponent(v.join('=')) ];
+    }));
+
+    this.token = cookieObject.access_token
   }
+
+  apiHost: string
+  url: string
+  token: string
 
   get<TResult> (pagination: PaginationQuery) {
     // let params = new HttpParams()
@@ -45,8 +52,8 @@ export class GenericService{
   retreive<TResult> (slug: string) {
     return this.http.get<TResult>(`${this.url}${slug}`, { headers: new HttpHeaders().set("Authorization", `Bearer ${this.token}`)});
   }
-  post<TResult,TRequest> (body: TRequest) {
-    return this.http.post<TResult>(this.url, body, { headers: new HttpHeaders().set("Authorization", `Bearer ${this.token}`)});
+  post<TResult,TRequest> (body: TRequest, slug?: string) {
+    return this.http.post<TResult>(`${this.url}${slug}`, body, { headers: new HttpHeaders().set("Authorization", `Bearer ${this.token}`)});
   }
   put<TResult,TRequest> (slug: string, body: TRequest) {
     return this.http.put<TResult>(`${this.url}${slug}`, body, { headers: new HttpHeaders().set("Authorization", `Bearer ${this.token}`)});
@@ -57,5 +64,4 @@ export class GenericService{
   delete<TResult> (slug: string) {
     return this.http.delete<TResult>(`${this.url}${slug}`, { headers: new HttpHeaders().set("Authorization", `Bearer ${this.token}`)});
   }
-
 }

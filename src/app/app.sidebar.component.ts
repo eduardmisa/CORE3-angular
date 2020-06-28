@@ -20,7 +20,7 @@ interface Module {
 
       </mat-drawer>
       <mat-drawer-content style="min-height:100vh">
-        <router-outlet></router-outlet>
+        <ng-content></ng-content>
       </mat-drawer-content>
     </mat-drawer-container>
   `,
@@ -31,7 +31,7 @@ export class AppSideBarComponent {
   modules:Module[] = [
     { name: "Services", urlPath: "/services"},
     { name: "ServiceRoutes", urlPath: "/service-routes"},
-    { name: "Modules", urlPath: "/modules"},
+    // { name: "Modules", urlPath: "/modules"},
     { name: "Groups", urlPath: "/groups"},
     { name: "Permissions", urlPath: "/permissions"},
     { name: "Users", urlPath: "/users"},
