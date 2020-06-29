@@ -14,7 +14,7 @@ import { UserRead,
       User Details
     </mat-card-title>
     <mat-card-subtitle>
-      Lorem ipsum dolor imet kadagu.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     </mat-card-subtitle>
 
     <mat-card-content style="display:flex-root">

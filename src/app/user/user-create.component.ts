@@ -17,7 +17,7 @@ import { PaginatedResponse } from 'src/interfaces/paginated.response';
         User Create
       </mat-card-title>
       <mat-card-subtitle>
-        Lorem ipsum dolor imet kadagu.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       </mat-card-subtitle>
 
       <mat-card-content style="display:flex-root">
@@ -119,7 +119,7 @@ export class UserCreateComponent implements OnInit {
   constructor(private svcUser: UserService, private svcGroup: GroupService, private router: Router) { }
 
   ngOnInit(): void {
-    this.svcGroup.get(new PaginationQuery(0, 0, '', ''))
+    this.svcGroup.paginate(new PaginationQuery(0, 0, '', ''))
     .subscribe((data: PaginatedResponse<GroupList>) => {
       this.groupList = data.results;
     })

@@ -23,7 +23,7 @@ import { ServiceList } from 'src/interfaces/service.interface';
         Permission Update
       </mat-card-title>
       <mat-card-subtitle>
-        Lorem ipsum dolor imet kadagu.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       </mat-card-subtitle>
 
       <mat-card-content style="display:flex-root">
@@ -106,11 +106,11 @@ export class PermissionUpdateComponent implements OnInit {
       this.form.service = item.service.code
       this.form.serviceRoutes = item.serviceRoutes.map(a => a.code)
     })
-    this.svcServiceRoute.get(new PaginationQuery(0, 0, '', ''))
+    this.svcServiceRoute.paginate(new PaginationQuery(0, 0, '', ''))
     .subscribe((data: PaginatedResponse<ServiceRouteList>) => {
       this.serviceRouteList = data.results
     })
-    this.svcService.get(new PaginationQuery(0, 0, '', ''))
+    this.svcService.paginate(new PaginationQuery(0, 0, '', ''))
     .subscribe((data: PaginatedResponse<ServiceList>) => {
       this.serviceList = data.results
     })

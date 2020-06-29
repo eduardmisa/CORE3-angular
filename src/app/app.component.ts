@@ -9,18 +9,23 @@ import { IsServer } from 'src/helpers/processHelper';
   selector: 'app-root',
   template: `
 
-    <div *ngIf="isAuthenticated; then thenBlock else elseBlock"></div>
+    <div *ngIf="isLoaded">
 
-    <ng-template #thenBlock>
-      <app-topbar (onToggleSideBar)="this.onToggleSideBar()"></app-topbar>
-      <app-sidebar [toggleState]=[toggleState]>
-        <router-outlet></router-outlet>
-      </app-sidebar>
-    </ng-template>
+      <div *ngIf="isAuthenticated; then thenBlock else elseBlock"></div>
 
-    <ng-template #elseBlock>
-      <app-login></app-login>
-    </ng-template>
+      <ng-template #thenBlock>
+        <app-topbar (onToggleSideBar)="this.onToggleSideBar()"></app-topbar>
+        <app-sidebar [toggleState]=[toggleState]>
+          <router-outlet></router-outlet>
+        </app-sidebar>
+      </ng-template>
+
+      <ng-template #elseBlock>
+        <app-login></app-login>
+      </ng-template>
+
+    </div>
+
   `,
   styles: []
 })
@@ -30,6 +35,7 @@ export class AppComponent implements OnInit {
   title = 'CORE-angular10'
   toggleState:boolean = false
   isAuthenticated = false
+  isLoaded = false
 
   ngOnInit () {
     if (IsServer()) {
@@ -50,6 +56,8 @@ export class AppComponent implements OnInit {
         this.isAuthenticated = this.svcAuth.isAuthenticated
         this.router.navigateByUrl(`/login`)
       })
+
+      this.isLoaded = true
   }
 
   onToggleSideBar () {

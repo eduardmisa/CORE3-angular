@@ -19,7 +19,7 @@ import { PermissionList } from 'src/interfaces/permission.interface';
         Group Update
       </mat-card-title>
       <mat-card-subtitle>
-        Lorem ipsum dolor imet kadagu.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       </mat-card-subtitle>
 
       <mat-card-content style="display:flex-root">
@@ -80,7 +80,7 @@ export class GroupUpdateComponent implements OnInit {
       this.form.description = item.description
       this.form.permissions = item.permissions.map(a => a.code)
     })
-    this.svcPermission.get(new PaginationQuery(0, 0, '', ''))
+    this.svcPermission.paginate(new PaginationQuery(0, 0, '', ''))
     .subscribe((data: PaginatedResponse<PermissionList>) => {
       this.permissionList = data.results
     })

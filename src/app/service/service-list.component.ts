@@ -13,12 +13,14 @@ import {MatTableDataSource} from '@angular/material/table';
 @Component({
   selector: 'app-service-list',
   template: `
+    
     <mat-card style="margin:20px;width:700px">
+      
       <mat-card-title>
         Service List
       </mat-card-title>
       <mat-card-subtitle>
-        Lorem ipsum dolor imet kadagu.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       </mat-card-subtitle>
 
       <mat-card-content>
@@ -79,7 +81,7 @@ export class ServiceListComponent implements OnInit {
   }
 
   populateServices () {
-    this.svcService.get(new PaginationQuery(0, 0, '', ''))
+    this.svcService.paginate(new PaginationQuery(0, 0, '', ''))
     .subscribe((data: PaginatedResponse<ServiceList>) => {
       this.dataSource = new MatTableDataSource<ServiceList>(data.results);
     })

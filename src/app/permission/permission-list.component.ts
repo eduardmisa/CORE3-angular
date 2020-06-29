@@ -18,7 +18,7 @@ import {MatTableDataSource} from '@angular/material/table';
         Permission List
       </mat-card-title>
       <mat-card-subtitle>
-        Lorem ipsum dolor imet kadagu.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       </mat-card-subtitle>
 
       <mat-card-content>
@@ -86,7 +86,7 @@ export class PermissionListComponent implements OnInit {
   }
 
   populateServices () {
-    this.svcPermission.get(new PaginationQuery(0, 0, '', ''))
+    this.svcPermission.paginate(new PaginationQuery(0, 0, '', ''))
     .subscribe((data: PaginatedResponse<PermissionList>) => {
       this.dataSource = new MatTableDataSource<PermissionList>(data.results);
     })

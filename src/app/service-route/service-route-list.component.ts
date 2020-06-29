@@ -18,7 +18,7 @@ import {MatTableDataSource} from '@angular/material/table';
         Service Route List
       </mat-card-title>
       <mat-card-subtitle>
-        Lorem ipsum dolor imet kadagu.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       </mat-card-subtitle>
 
       <mat-card-content>
@@ -79,7 +79,7 @@ export class ServiceRouteListComponent implements OnInit {
   }
 
   populateServices () {
-    this.svcServiceRoute.get(new PaginationQuery(0, 0, '', ''))
+    this.svcServiceRoute.paginate(new PaginationQuery(0, 0, '', ''))
     .subscribe((data: PaginatedResponse<ServiceRouteList>) => {
       this.dataSource = new MatTableDataSource<ServiceRouteList>(data.results);
     })

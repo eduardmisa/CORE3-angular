@@ -18,7 +18,7 @@ import {MatTableDataSource} from '@angular/material/table';
         User List
       </mat-card-title>
       <mat-card-subtitle>
-        Lorem ipsum dolor imet kadagu.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       </mat-card-subtitle>
 
       <mat-card-content>
@@ -112,7 +112,7 @@ export class UserListComponent implements OnInit {
   }
 
   populateServices () {
-    this.svcUser.get(new PaginationQuery(0, 0, '', ''))
+    this.svcUser.paginate(new PaginationQuery(0, 0, '', ''))
     .subscribe((data: PaginatedResponse<UserList>) => {
       this.dataSource = new MatTableDataSource<UserList>(data.results);
     })

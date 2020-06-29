@@ -20,7 +20,7 @@ import { ServiceList } from 'src/interfaces/service.interface';
         Permission Create
       </mat-card-title>
       <mat-card-subtitle>
-        Lorem ipsum dolor imet kadagu.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       </mat-card-subtitle>
 
       <mat-card-content style="display:flex-root">
@@ -92,11 +92,11 @@ export class PermissionCreateComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    this.svcServiceRoute.get(new PaginationQuery(0, 0, '', ''))
+    this.svcServiceRoute.paginate(new PaginationQuery(0, 0, '', ''))
     .subscribe((data: PaginatedResponse<ServiceRouteList>) => {
       this.serviceRouteList = data.results
     })
-    this.svcService.get(new PaginationQuery(0, 0, '', ''))
+    this.svcService.paginate(new PaginationQuery(0, 0, '', ''))
     .subscribe((data: PaginatedResponse<ServiceList>) => {
       this.serviceList = data.results
     })

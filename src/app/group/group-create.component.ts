@@ -17,7 +17,7 @@ import { PaginatedResponse } from 'src/interfaces/paginated.response';
         Group Create
       </mat-card-title>
       <mat-card-subtitle>
-        Lorem ipsum dolor imet kadagu.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       </mat-card-subtitle>
 
       <mat-card-content style="display:flex-root">
@@ -72,7 +72,7 @@ export class GroupCreateComponent implements OnInit {
   constructor(private svcGroup: GroupService, private svcPermission: PermissionService, private router: Router) { }
 
   ngOnInit(): void {
-    this.svcPermission.get(new PaginationQuery(0, 0, '', ''))
+    this.svcPermission.paginate(new PaginationQuery(0, 0, '', ''))
     .subscribe((data: PaginatedResponse<PermissionList>) => {
       this.permissionList = data.results
     })

@@ -17,7 +17,7 @@ import { PaginatedResponse } from 'src/interfaces/paginated.response';
         Service Route Create
       </mat-card-title>
       <mat-card-subtitle>
-        Lorem ipsum dolor imet kadagu.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       </mat-card-subtitle>
 
       <mat-card-content style="display:flex-root">
@@ -73,7 +73,7 @@ export class ServiceRouteCreateComponent implements OnInit {
   constructor(private svcServiceRoute: ServiceRouteService,private svcService: ServiceService, private router: Router) { }
 
   ngOnInit(): void {
-    this.svcService.get(new PaginationQuery(0, 0, '', ''))
+    this.svcService.paginate(new PaginationQuery(0, 0, '', ''))
     .subscribe((data: PaginatedResponse<ServiceList>) => {
       this.serviceList = data.results
     })

@@ -18,7 +18,7 @@ import {MatTableDataSource} from '@angular/material/table';
         Group List
       </mat-card-title>
       <mat-card-subtitle>
-        Lorem ipsum dolor imet kadagu.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       </mat-card-subtitle>
 
       <mat-card-content>
@@ -74,7 +74,7 @@ export class GroupListComponent implements OnInit {
   }
 
   populateServices () {
-    this.svcGroup.get(new PaginationQuery(0, 0, '', ''))
+    this.svcGroup.paginate(new PaginationQuery(0, 0, '', ''))
     .subscribe((data: PaginatedResponse<GroupList>) => {
       this.dataSource = new MatTableDataSource<GroupList>(data.results);
     })

@@ -33,7 +33,7 @@ export class GenericService{
   url: string
   token: string
 
-  get<TResult> (pagination: PaginationQuery) {
+  paginate<TResult> (pagination: PaginationQuery) {
     // let params = new HttpParams()
     // if (filter)     params.append('filter', filter)
     // if (sortOrder)  params.append('sortOrder', sortOrder)
