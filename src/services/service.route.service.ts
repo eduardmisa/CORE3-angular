@@ -5,6 +5,6 @@ import { GenericService } from './z.service';
 @Injectable()
 export class ServiceRouteService extends GenericService {
   constructor(http: HttpClient) {
-    super(http, '/api/v1/ServiceRoutes/')
+    super(http, '/api/admin/ServiceRoutes/')
    }
 }

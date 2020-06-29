@@ -5,6 +5,6 @@ import { GenericService } from './z.service';
 @Injectable()
 export class UserService extends GenericService {
   constructor(http: HttpClient) {
-    super(http, '/api/v1/Users/')
+    super(http, '/api/admin/Users/')
    }
 }
