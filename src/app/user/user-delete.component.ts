@@ -20,7 +20,7 @@ import { UserRead,
 
         <mat-card-content style="display:flex-root">
 
-          <button mat-icon-button color="primary" (click)="this.backToList()"><mat-icon>arrow_back</mat-icon></button>
+          <button mat-icon-button color="accent" (click)="this.backToList()"><mat-icon>arrow_back</mat-icon></button>
 
           <br><br>
 
@@ -104,7 +104,7 @@ import { UserRead,
             </div>
           </mat-card>
 
-          <button mat-stroked-button color="primary" (click)="this.Submit()">Submit</button>
+          <button mat-stroked-button color="accent" (click)="this.Submit()">Submit</button>
 
         </mat-card-content>
       </mat-card-loading>

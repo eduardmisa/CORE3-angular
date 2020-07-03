@@ -13,12 +13,12 @@ import { CurrentUser } from 'src/interfaces/auth.interface';
 
       <mat-menu #matMenu="matMenu">
         <ng-template matMenuContent>
-          <button mat-menu-item (click)="this.viewProfile()">Profile</button>
-          <button mat-menu-item (click)="this.setSettings()">Settings</button>
-          <button mat-menu-item (click)="this.logoutUser()">Logout</button>
+          <button mat-menu-item color="accent" (click)="this.viewProfile()">Profile</button>
+          <button mat-menu-item color="accent" (click)="this.setSettings()">Settings</button>
+          <button mat-menu-item color="accent" (click)="this.logoutUser()">Logout</button>
         </ng-template>
       </mat-menu>
-      <button mat-button [matMenuTriggerFor]="matMenu" style="margin-left:auto;">{{currentUser.firstname}} {{currentUser.lastname}}<mat-icon>more_vert</mat-icon></button>
+      <button mat-button [matMenuTriggerFor]="matMenu" style="margin-left:auto;">{{currentUser.firstname}} {{currentUser.lastname}}</button>
     </mat-toolbar>
   `,
   styles: []

@@ -9,7 +9,9 @@ import { IsServer } from 'src/helpers/processHelper';
   selector: 'app-root',
   template: `
 
-    <div *ngIf="isLoaded">
+    <div *ngIf="isLoaded; then thenBlockLoaded else elseBlockLoaded"></div>
+
+    <ng-template #thenBlockLoaded>
 
       <div *ngIf="isAuthenticated; then thenBlock else elseBlock"></div>
 
@@ -24,8 +26,17 @@ import { IsServer } from 'src/helpers/processHelper';
         <app-login></app-login>
       </ng-template>
 
-    </div>
+    </ng-template>
 
+    <ng-template #elseBlockLoaded>
+      <mat-card style="border-radius:0px;">
+        <div class="flex w-screen h-screen">
+          <div class="margin-auto">
+            <mat-spinner></mat-spinner>
+          </div>
+        </div>
+      </mat-card>
+    </ng-template>
   `,
   styles: []
 })
@@ -50,14 +61,14 @@ export class AppComponent implements OnInit {
         this.svcAuth.isAuthenticated = true
         this.isAuthenticated = this.svcAuth.isAuthenticated
         this.svcAuth.currentUser = data
+        this.isLoaded = true
       },
       ({error}) => {
         this.svcAuth.isAuthenticated = false
         this.isAuthenticated = this.svcAuth.isAuthenticated
+        this.isLoaded = true
         this.router.navigateByUrl(`/login`)
       })
-
-      this.isLoaded = true
   }
 
   onToggleSideBar () {

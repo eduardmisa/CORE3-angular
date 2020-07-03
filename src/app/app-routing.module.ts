@@ -5,6 +5,8 @@ import { AuthGuardService } from '../../src/app/auth/can.activate'
 
 import { LoginComponent } from './auth/login.component';
 
+import { DashboardComponent } from './dashboard';
+
 import { ServiceListComponent } from './service/service-list.component';
 import { ServiceViewComponent } from './service/service-view.component';
 import { ServiceCreateComponent } from './service/service-create.component';
@@ -36,9 +38,12 @@ import { UserUpdateComponent } from './user/user-update.component';
 import { UserDeleteComponent } from './user/user-delete.component';
 
 
+
 const routes: Routes = [
 
   { path: 'login', component: LoginComponent },
+
+  { path: '', component: DashboardComponent, canActivate: [ AuthGuardService ] },
 
   { path: 'services', component: ServiceListComponent, canActivate: [ AuthGuardService ] },
   { path: 'services/view/:id', component: ServiceViewComponent, canActivate: [ AuthGuardService ] },

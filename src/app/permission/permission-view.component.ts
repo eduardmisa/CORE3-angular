@@ -19,7 +19,7 @@ import { PermissionRead,
 
         <mat-card-content style="display:flex-root">
 
-          <button mat-icon-button color="primary" (click)="this.backToList()"><mat-icon>arrow_back</mat-icon></button>
+          <button mat-icon-button color="accent" (click)="this.backToList()"><mat-icon>arrow_back</mat-icon></button>
 
           <br><br>
 

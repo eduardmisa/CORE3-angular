@@ -33,6 +33,9 @@ export class GenericService{
   url: string
   token: string
 
+  count () {
+    return this.http.get<number>(`${this.url}count/`, { headers: new HttpHeaders().set("Authorization", `Bearer ${this.token}`)});
+  }
   paginate<TResult> (pagination: PaginationQuery) {
     // let params = new HttpParams()
     // if (filter)     params.append('filter', filter)

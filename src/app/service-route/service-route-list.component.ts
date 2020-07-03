@@ -23,8 +23,8 @@ import {MatTableDataSource} from '@angular/material/table';
         </mat-card-subtitle>
 
         <mat-card-content>
-          <button mat-icon-button color="primary" (click)="this.create()"><mat-icon>add</mat-icon></button>
-          <button mat-icon-button color="primary" (click)="this.populateServiceRoutes()"><mat-icon>update</mat-icon></button>
+          <button mat-icon-button color="accent" (click)="this.create()"><mat-icon>add</mat-icon></button>
+          <button mat-icon-button color="accent" (click)="this.populateServiceRoutes()"><mat-icon>update</mat-icon></button>
 
           <table mat-table [dataSource]="dataSource" matSort style="width:100%;">
 
@@ -48,12 +48,12 @@ import {MatTableDataSource} from '@angular/material/table';
               <td mat-cell *matCellDef="let item">
                 <mat-menu #matMenu="matMenu">
                   <ng-template matMenuContent>
-                    <button mat-menu-item (click)="this.view(item.code)">View</button>
-                    <button mat-menu-item (click)="this.update(item.code)">Update</button>
-                    <button mat-menu-item (click)="this.delete(item.code)">Delete</button>
+                    <button mat-menu-item color="accent" (click)="this.view(item.code)">View</button>
+                    <button mat-menu-item color="accent" (click)="this.update(item.code)">Update</button>
+                    <button mat-menu-item color="accent" (click)="this.delete(item.code)">Delete</button>
                   </ng-template>
                 </mat-menu>
-                <button mat-icon-button [matMenuTriggerFor]="matMenu"><mat-icon>more_vert</mat-icon></button>
+                <button mat-icon-button color="accent" [matMenuTriggerFor]="matMenu"><mat-icon>more_vert</mat-icon></button>
               </td>
             </ng-container>
           
@@ -61,7 +61,7 @@ import {MatTableDataSource} from '@angular/material/table';
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>
 
-          <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons></mat-paginator>
+          <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
         </mat-card-content>
       </mat-card-loading>
     </div>

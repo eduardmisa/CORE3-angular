@@ -51,9 +51,9 @@ import { AppTopBarComponent } from './shared/app.topbar.component';
 
 import { LoadingCardComponent } from './shared/loading-card.component';
 
-
 import { LoginComponent } from './auth/login.component';
 
+import { DashboardComponent } from './dashboard/index';
 
 import { ServiceListComponent } from './service/service-list.component';
 import { ServiceViewComponent } from './service/service-view.component';
@@ -104,6 +104,8 @@ import { AuthGuardService } from './auth/can.activate';
     AppComponent,AppSideBarComponent,AppTopBarComponent,LoadingCardComponent,
 
     LoginComponent,
+
+    DashboardComponent,
 
     ServiceListComponent,
     ServiceViewComponent,
