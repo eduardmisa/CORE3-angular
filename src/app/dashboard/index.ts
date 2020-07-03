@@ -7,18 +7,18 @@ import { PermissionService } from 'src/services/permission.service';
 import { UserService } from 'src/services/user.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-dashboard',
   template: `
 
     <br><br>
 
     <div class="flex flex-row">
-      <span class="mat-display-3 margin-auto"> Summary </span>
+      <span class="mat-display-2 margin-auto"> Summary </span>
     </div>
 
     <br>
 
-    <div class="flex flex-row justify-center">
+    <div class="flex flex-row justify-center flex-wrap">
 
       <div class="flex" style="padding:10px;">
         <div>
@@ -31,8 +31,10 @@ import { UserService } from 'src/services/user.service';
           </mat-card-subtitle>
           
           <mat-card-content style="display:flex-root">
-          <div class="flex flex-col">
+          <div class="flex flex-col w-full justify-center">
             <span class="mat-display-1 margin-auto"> {{countService}} </span>
+            <br>
+            <button mat-icon-button color="accent" style="margin:auto" (click)="this.fetchServicesCount()"><mat-icon>update</mat-icon></button>
           </div>
           </mat-card-content>
           
@@ -53,6 +55,8 @@ import { UserService } from 'src/services/user.service';
           <mat-card-content style="display:flex-root">
           <div class="flex flex-col">
             <span class="mat-display-1 margin-auto"> {{countServiceRoute}} </span>
+            <br>
+            <button mat-icon-button color="accent" style="margin:auto" (click)="this.fetchServiceRoutesCount()"><mat-icon>update</mat-icon></button>
           </div>
           </mat-card-content>
           
@@ -73,6 +77,8 @@ import { UserService } from 'src/services/user.service';
           <mat-card-content style="display:flex-root">
           <div class="flex flex-col">
             <span class="mat-display-1 margin-auto"> {{countGroup}} </span>
+            <br>
+            <button mat-icon-button color="accent" style="margin:auto" (click)="this.fetchGroupCount()"><mat-icon>update</mat-icon></button>
           </div>
           </mat-card-content>
           
@@ -93,6 +99,8 @@ import { UserService } from 'src/services/user.service';
           <mat-card-content style="display:flex-root">
           <div class="flex flex-col">
             <span class="mat-display-1 margin-auto"> {{countPermission}} </span>
+            <br>
+            <button mat-icon-button color="accent" style="margin:auto" (click)="this.fetchPermissionsCount()"><mat-icon>update</mat-icon></button>
           </div>
           </mat-card-content>
           
@@ -113,6 +121,8 @@ import { UserService } from 'src/services/user.service';
           <mat-card-content style="display:flex-root">
           <div class="flex flex-col">
             <span class="mat-display-1 margin-auto"> {{countUser}} </span>
+            <br>
+            <button mat-icon-button color="accent" style="margin:auto" (click)="this.fetchUsersCount()"><mat-icon>update</mat-icon></button>
           </div>
           </mat-card-content>
           
@@ -134,26 +144,47 @@ export class DashboardComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
+    this.fetchServicesCount()
+    this.fetchServiceRoutesCount()
+    this.fetchGroupCount()
+    this.fetchPermissionsCount()
+    this.fetchUsersCount()
+  }
+
+  fetchServicesCount () : void {
+    this.isLoadingService = true
     this.serviceService.count()
     .subscribe((data: number) => {
       this.countService = data
       this.isLoadingService = false
     })
+  }
+  fetchServiceRoutesCount () : void {
+    this.isLoadingServiceRoute = true
     this.serviceRouteService.count()
     .subscribe((data: number) => {
       this.countServiceRoute = data
       this.isLoadingServiceRoute = false
     })
+  }
+  fetchGroupCount () : void {
+    this.isLoadingGroup = true
     this.groupService.count()
     .subscribe((data: number) => {
       this.countGroup = data
       this.isLoadingGroup = false
     })
+  }
+  fetchPermissionsCount () : void {
+    this.isLoadingPermission = true
     this.permissionService.count()
     .subscribe((data: number) => {
       this.countPermission = data
       this.isLoadingPermission = false
     })
+  }
+  fetchUsersCount () : void {
+    this.isLoadingUser = true
     this.userService.count()
     .subscribe((data: number) => {
       this.countUser = data
@@ -161,16 +192,15 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  isLoadingService: boolean = true
-  isLoadingServiceRoute: boolean = true
-  isLoadingGroup: boolean = true
-  isLoadingPermission: boolean = true
-  isLoadingUser: boolean = true
+  isLoadingService: boolean = false
+  isLoadingServiceRoute: boolean = false
+  isLoadingGroup: boolean = false
+  isLoadingPermission: boolean = false
+  isLoadingUser: boolean = false
 
   countService: number = 0
   countServiceRoute: number = 0
   countGroup: number = 0
   countPermission: number = 0
   countUser: number = 0
-
 }

@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
               Login
             </mat-card-title>
             <mat-card-subtitle>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Enter valid credential to login
             </mat-card-subtitle>
 
             <mat-card-content style="display:flex-root">
@@ -30,7 +30,10 @@ import { Router } from '@angular/router';
                 <input matInput [(ngModel)]="this.form.password" type="password">
               </mat-form-field>
 
-              <br><br>
+              <div *ngFor="let error of errors">
+                <span class="mat-caption" style="color:maroon">{{error}}</span>
+              </div>
+              <br>
 
               <button mat-stroked-button color="accent" (click)="this.onSubmitLogin()">Login</button>
 
@@ -55,7 +58,7 @@ export class LoginComponent {
   loginResponse: LoginResponse = {
     token: ""
   }
-  error = ""
+  errors: string[] = []
   isLoading: boolean = false
 
   onSubmitLogin(): void {
@@ -74,7 +77,7 @@ export class LoginComponent {
       })
     },
     ({error}) => {
-      this.error = error
+      this.errors = error
       this.svcAuth.isAuthenticated = false
       document.cookie = `access_token=`
       this.isLoading = false

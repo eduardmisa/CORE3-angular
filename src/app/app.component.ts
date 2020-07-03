@@ -13,16 +13,16 @@ import { IsServer } from 'src/helpers/processHelper';
 
     <ng-template #thenBlockLoaded>
 
-      <div *ngIf="isAuthenticated; then thenBlock else elseBlock"></div>
+      <div *ngIf="isAuthenticated; then thenBlockAuth else elseBlockAuth"></div>
 
-      <ng-template #thenBlock>
+      <ng-template #thenBlockAuth>
         <app-topbar (onToggleSideBar)="this.onToggleSideBar()"></app-topbar>
         <app-sidebar [toggleState]=[toggleState]>
           <router-outlet></router-outlet>
         </app-sidebar>
       </ng-template>
 
-      <ng-template #elseBlock>
+      <ng-template #elseBlockAuth>
         <app-login></app-login>
       </ng-template>
 
