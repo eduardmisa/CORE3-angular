@@ -9,7 +9,7 @@ import { PermissionRead,
 @Component({
   selector: 'app-permission-delete',
   template: `
-    <mat-card style="margin:20px;width:300px">
+    <mat-card style="margin:30px;">
       <mat-card-title>
         Permission Delete
       </mat-card-title>
@@ -86,7 +86,11 @@ import { PermissionRead,
           </mat-selection-list>
         </mat-card>
 
-        <br>
+        <mat-card *ngIf="errors.length > 0" class="mat-elevation-z0">
+          <div *ngFor="let error of errors">
+            <span class="mat-caption" style="color:maroon">{{error}}</span>
+          </div>
+        </mat-card>
 
         <button mat-stroked-button color="primary" (click)="this.Submit()">Submit</button>
 
@@ -111,6 +115,7 @@ export class PermissionDeleteComponent implements OnInit {
     serviceRoutes: [] as PermissionServiceRouteRead[]
   }
   deletedResponse: PermissionDeleteResponse
+  errors: string[] = []
 
   constructor(private svcPermission: PermissionService, private router: Router, private route: ActivatedRoute) {
     this.route.params.subscribe(({id}) => this.slug = id);
@@ -132,7 +137,7 @@ export class PermissionDeleteComponent implements OnInit {
   }
 
   Submit () {
-
+    this.errors = [] as string[]
     this.svcPermission.delete<PermissionDeleteResponse>(this.slug)
     .subscribe(
     data => {
@@ -140,7 +145,7 @@ export class PermissionDeleteComponent implements OnInit {
       this.router.navigateByUrl(`/permissions`)
     },
     ({error}) => {
-      
+      this.errors = error
     })
   }
 }

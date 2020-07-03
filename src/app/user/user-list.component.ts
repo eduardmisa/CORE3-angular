@@ -13,7 +13,7 @@ import {MatTableDataSource} from '@angular/material/table';
 @Component({
   selector: 'app-user-list',
   template: `
-    <mat-card style="margin:20px;width:1200px">
+    <mat-card style="margin:30px;">
       <mat-card-title>
         User List
       </mat-card-title>
@@ -28,32 +28,32 @@ import {MatTableDataSource} from '@angular/material/table';
 
           <ng-container matColumnDef="firstname">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Firstname </th>
-            <td mat-cell *matCellDef="let item"> {{item.firstname}} </td>
+            <td mat-cell *matCellDef="let item"> {{item.firstname.trimByMaxCharacter(30)}} </td>
           </ng-container>
 
           <ng-container matColumnDef="middlename">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Middlename </th>
-            <td mat-cell *matCellDef="let item"> {{item.middlename}} </td>
+            <td mat-cell *matCellDef="let item"> {{item.middlename.trimByMaxCharacter(30)}} </td>
           </ng-container>
 
           <ng-container matColumnDef="lastname">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Lastname </th>
-            <td mat-cell *matCellDef="let item"> {{item.lastname}} </td>
+            <td mat-cell *matCellDef="let item"> {{item.lastname.trimByMaxCharacter(30)}} </td>
           </ng-container>
 
           <ng-container matColumnDef="username">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Username </th>
-            <td mat-cell *matCellDef="let item"> {{item.username}} </td>
+            <td mat-cell *matCellDef="let item"> {{item.username.trimByMaxCharacter(30)}} </td>
           </ng-container>
 
           <ng-container matColumnDef="email">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-            <td mat-cell *matCellDef="let item"> {{item.email}} </td>
+            <td mat-cell *matCellDef="let item"> {{item.email.trimByMaxCharacter(30)}} </td>
           </ng-container>
 
           <ng-container matColumnDef="birthdate">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Birthdate </th>
-            <td mat-cell *matCellDef="let item"> {{item.birthdate}} </td>
+            <td mat-cell *matCellDef="let item"> {{item.birthdate.trimByMaxCharacter(30)}} </td>
           </ng-container>
 
           <ng-container matColumnDef="isActive">
@@ -114,7 +114,7 @@ export class UserListComponent implements OnInit {
   populateServices () {
     this.svcUser.paginate(new PaginationQuery(0, 0, '', ''))
     .subscribe((data: PaginatedResponse<UserList>) => {
-      this.dataSource = new MatTableDataSource<UserList>(data.results);
+      this.dataSource.data = data.results
     })
   }
 

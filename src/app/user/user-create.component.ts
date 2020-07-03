@@ -12,7 +12,7 @@ import { PaginatedResponse } from 'src/interfaces/paginated.response';
 @Component({
   selector: 'app-user-create',
   template: `
-    <mat-card style="margin:20px;width:500px">
+    <mat-card style="margin:30px;">
       <mat-card-title>
         User Create
       </mat-card-title>
@@ -160,6 +160,7 @@ export class UserCreateComponent implements OnInit {
   }
 
   Submit () {
+    this.errors = [] as string[]
     this.svcUser.post<UserCreateResponse, UserCreateRequest>(this.form)
     .subscribe(
     data => {

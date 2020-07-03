@@ -6,7 +6,7 @@ import { ServiceRouteRead,ServiceRouteServiceRead, ServiceRouteDeleteResponse } 
 @Component({
   selector: 'app-customer-delete',
   template: `
-    <mat-card style="margin:20px;width:300px">
+    <mat-card style="margin:30px;">
       <mat-card-title>
         Service Route Delete
       </mat-card-title>
@@ -63,6 +63,12 @@ import { ServiceRouteRead,ServiceRouteServiceRead, ServiceRouteDeleteResponse } 
 
         </mat-card>
 
+        <mat-card *ngIf="errors.length > 0" class="mat-elevation-z0">
+          <div *ngFor="let error of errors">
+            <span class="mat-caption" style="color:maroon">{{error}}</span>
+          </div>
+        </mat-card>
+
         <button mat-stroked-button color="primary" (click)="this.Submit()">Submit</button>
 
       </mat-card-content>
@@ -84,6 +90,7 @@ export class ServiceRouteDeleteComponent implements OnInit {
     } as ServiceRouteServiceRead
   }
   deletedResponse: ServiceRouteDeleteResponse
+  errors: string[] = []
 
   constructor(private svcServiceRoute: ServiceRouteService, private router: Router, private route: ActivatedRoute) {
     this.route.params.subscribe(({id}) => this.slug = id);
@@ -105,7 +112,7 @@ export class ServiceRouteDeleteComponent implements OnInit {
   }
 
   Submit () {
-
+    this.errors = [] as string[]
     this.svcServiceRoute.delete<ServiceRouteDeleteResponse>(this.slug)
     .subscribe(
     data => {
@@ -113,7 +120,7 @@ export class ServiceRouteDeleteComponent implements OnInit {
       this.router.navigateByUrl(`/service-routes`)
     },
     ({error}) => {
-      
+      this.errors = error
     })
   }
 }

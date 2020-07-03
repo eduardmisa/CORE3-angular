@@ -15,7 +15,7 @@ import { ServiceList } from 'src/interfaces/service.interface';
 @Component({
   selector: 'app-permission-create',
   template: `
-    <mat-card style="margin:20px;width:500px">
+    <mat-card style="margin:30px;">
       <mat-card-title>
         Permission Create
       </mat-card-title>
@@ -134,6 +134,7 @@ export class PermissionCreateComponent implements OnInit {
   }
 
   Submit () {
+    this.errors = [] as string[]
     this.svcPermission.post<PermissionCreateResponse, PermissionCreateRequest>(this.form)
     .subscribe(
     data => {

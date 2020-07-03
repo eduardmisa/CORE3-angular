@@ -14,7 +14,7 @@ import { PermissionList } from 'src/interfaces/permission.interface';
 @Component({
   selector: 'app-group-update',
   template: `
-    <mat-card style="margin:20px;width:300px">
+    <mat-card style="margin:30px;">
       <mat-card-title>
         Group Update
       </mat-card-title>
@@ -110,6 +110,7 @@ export class GroupUpdateComponent implements OnInit {
   }
 
   Submit () {
+    this.errors = [] as string[]
     this.svcGroup.put<GroupUpdateResponse, GroupUpdateRequest>(this.slug, this.form)
     .subscribe(
     data => {

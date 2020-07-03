@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-customer-create',
   template: `
-    <mat-card style="margin:20px;width:300px">
+    <mat-card style="margin:30px;">
       <mat-card-title>
         Service Create
       </mat-card-title>
@@ -77,6 +77,7 @@ export class ServiceCreateComponent {
   }
 
   Submit () {
+    this.errors = [] as string[]
     this.svcService.post<ServiceCreateResponse, ServiceCreateRequest>(this.form)
     .subscribe(
     data => {

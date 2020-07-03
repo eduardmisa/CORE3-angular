@@ -9,9 +9,9 @@ import { UserRead,
 @Component({
   selector: 'app-user-delete',
   template: `
-  <mat-card style="margin:20px;width:300px">
+  <mat-card style="margin:30px;">
     <mat-card-title>
-      User Details
+      User Delete
     </mat-card-title>
     <mat-card-subtitle>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -97,6 +97,12 @@ import { UserRead,
         </mat-selection-list>
       </mat-card>
 
+      <mat-card *ngIf="errors.length > 0" class="mat-elevation-z0">
+        <div *ngFor="let error of errors">
+          <span class="mat-caption" style="color:maroon">{{error}}</span>
+        </div>
+      </mat-card>
+
       <button mat-stroked-button color="primary" (click)="this.Submit()">Submit</button>
 
     </mat-card-content>
@@ -119,6 +125,7 @@ export class UserDeleteComponent implements OnInit {
     groups: [] as UserGroupRead[]
   }
   deletedResponse: UserDeleteResponse
+  errors: string[] = []
 
   constructor(private svcUser: UserService, private router: Router, private route: ActivatedRoute) {
     this.route.params.subscribe(({id}) => this.slug = id);
@@ -140,7 +147,7 @@ export class UserDeleteComponent implements OnInit {
   }
 
   Submit () {
-
+    this.errors = [] as string[]
     this.svcUser.delete<UserDeleteResponse>(this.slug)
     .subscribe(
     data => {
@@ -148,7 +155,7 @@ export class UserDeleteComponent implements OnInit {
       this.router.navigateByUrl(`/users`)
     },
     ({error}) => {
-      
+      this.errors = error
     })
   }
 }

@@ -6,7 +6,7 @@ import { GroupRead, GroupPermissionRead } from 'src/interfaces/group.interface';
 @Component({
   selector: 'app-group-view',
   template: `
-    <mat-card style="margin:20px;width:300px">
+    <mat-card style="margin:30px;">
       <mat-card-title>
         Group Details
       </mat-card-title>

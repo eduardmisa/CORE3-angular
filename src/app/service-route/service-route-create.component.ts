@@ -12,7 +12,7 @@ import { PaginatedResponse } from 'src/interfaces/paginated.response';
 @Component({
   selector: 'app-customer-create',
   template: `
-    <mat-card style="margin:20px;width:300px">
+    <mat-card style="margin:30px;">
       <mat-card-title>
         Service Route Create
       </mat-card-title>
@@ -101,6 +101,7 @@ export class ServiceRouteCreateComponent implements OnInit {
   }
 
   Submit () {
+    this.errors = [] as string[]
     this.svcServiceRoute.post<ServiceRouteCreateResponse, ServiceRouteCreateRequest>(this.form)
     .subscribe(
     data => {

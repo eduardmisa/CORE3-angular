@@ -18,7 +18,7 @@ import { ServiceList } from 'src/interfaces/service.interface';
 @Component({
   selector: 'app-permission-update',
   template: `
-    <mat-card style="margin:20px;width:500px">
+    <mat-card style="margin:30px;">
       <mat-card-title>
         Permission Update
       </mat-card-title>
@@ -150,6 +150,7 @@ export class PermissionUpdateComponent implements OnInit {
    }
 
   Submit () {
+    this.errors = [] as string[]
     this.svcPermission.put<PermissionUpdateResponse, PermissionUpdateRequest>(this.slug, this.form)
     .subscribe(
     data => {

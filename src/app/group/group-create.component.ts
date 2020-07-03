@@ -12,7 +12,7 @@ import { PaginatedResponse } from 'src/interfaces/paginated.response';
 @Component({
   selector: 'app-group-create',
   template: `
-    <mat-card style="margin:20px;width:300px">
+    <mat-card style="margin:30px;">
       <mat-card-title>
         Group Create
       </mat-card-title>
@@ -100,6 +100,7 @@ export class GroupCreateComponent implements OnInit {
   }
 
   Submit () {
+    this.errors = [] as string[]
     this.svcGroup.post<GroupCreateResponse, GroupCreateRequest>(this.form)
     .subscribe(
     data => {

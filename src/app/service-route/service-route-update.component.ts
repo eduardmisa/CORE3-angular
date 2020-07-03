@@ -13,7 +13,7 @@ import { ServiceService } from 'src/services/service.service';
 @Component({
   selector: 'app-customer-update',
   template: `
-    <mat-card style="margin:20px;width:300px">
+    <mat-card style="margin:30px;">
       <mat-card-title>
         Service Route Update
       </mat-card-title>
@@ -109,6 +109,7 @@ export class ServiceRouteUpdateComponent implements OnInit {
   }
 
   Submit () {
+    this.errors = [] as string[]
     this.svcServiceRoute.put<ServiceRouteUpdateResponse, ServiceRouteUpdateRequest>(this.slug, this.form)
     .subscribe(
     data => {

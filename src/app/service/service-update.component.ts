@@ -6,7 +6,7 @@ import { ServiceRead, ServiceUpdateRequest, ServiceUpdateResponse } from 'src/in
 @Component({
   selector: 'app-customer-update',
   template: `
-    <mat-card style="margin:20px;width:300px">
+    <mat-card style="margin:30px;">
       <mat-card-title>
         Service Update
       </mat-card-title>
@@ -88,6 +88,7 @@ export class ServiceUpdateComponent implements OnInit {
   }
 
   Submit () {
+    this.errors = [] as string[]
     this.svcService.put<ServiceUpdateResponse, ServiceUpdateRequest>(this.slug, this.form)
     .subscribe(
     data => {

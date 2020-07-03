@@ -14,7 +14,7 @@ import { GroupService } from 'src/services/group.service';
 @Component({
   selector: 'app-user-update',
   template: `
-  <mat-card style="margin:20px;width:500px">
+  <mat-card style="margin:30px;">
   <mat-card-title>
     User Update
   </mat-card-title>
@@ -169,6 +169,7 @@ export class UserUpdateComponent implements OnInit {
     this.router.navigateByUrl(`/users`)
   }
   Submit () {
+    this.errors = [] as string[]
     this.svcUser.put<UserUpdateResponse, UserUpdateRequest>(this.slug, this.form)
     .subscribe(
     data => {

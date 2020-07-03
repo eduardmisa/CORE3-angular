@@ -6,7 +6,7 @@ import { ServiceRouteRead, ServiceRouteServiceRead } from 'src/interfaces/servic
 @Component({
   selector: 'app-service-view',
   template: `
-    <mat-card style="margin:20px;width:300px">
+    <mat-card style="margin:30px;">
       <mat-card-title>
         Service Route Details
       </mat-card-title>

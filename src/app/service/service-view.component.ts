@@ -6,7 +6,7 @@ import { ServiceRead } from 'src/interfaces/service.interface';
 @Component({
   selector: 'app-service-view',
   template: `
-    <mat-card style="margin:20px;width:300px">
+    <mat-card style="margin:30px;">
       <mat-card-title>
         Service Details
       </mat-card-title>

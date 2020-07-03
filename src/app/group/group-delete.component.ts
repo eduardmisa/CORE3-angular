@@ -8,7 +8,7 @@ import { GroupRead,
 @Component({
   selector: 'app-group-delete',
   template: `
-    <mat-card style="margin:20px;width:300px">
+    <mat-card style="margin:30px;">
       <mat-card-title>
         Group Delete
       </mat-card-title>
@@ -54,7 +54,11 @@ import { GroupRead,
           </mat-selection-list>
         </mat-card>
 
-        <br>
+        <mat-card *ngIf="errors.length > 0" class="mat-elevation-z0">
+          <div *ngFor="let error of errors">
+            <span class="mat-caption" style="color:maroon">{{error}}</span>
+          </div>
+        </mat-card>
 
         <button mat-stroked-button color="primary" (click)="this.Submit()">Submit</button>
 
@@ -72,6 +76,7 @@ export class GroupDeleteComponent implements OnInit {
     permissions: [] as GroupPermissionRead[]
   }
   deletedResponse: GroupRead
+  errors: string[] = []
 
   constructor(private svcGroup: GroupService, private router: Router, private route: ActivatedRoute) {
     this.route.params.subscribe(({id}) => this.slug = id);
@@ -93,7 +98,7 @@ export class GroupDeleteComponent implements OnInit {
   }
 
   Submit () {
-
+    this.errors = [] as string[]
     this.svcGroup.delete<GroupDeleteResponse>(this.slug)
     .subscribe(
     data => {
@@ -101,7 +106,7 @@ export class GroupDeleteComponent implements OnInit {
       this.router.navigateByUrl(`/groups`)
     },
     ({error}) => {
-      
+      this.errors = error
     })
   }
 }

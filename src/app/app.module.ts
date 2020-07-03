@@ -1,3 +1,6 @@
+// Custom Extension Methods
+import 'src/extension-methods/stringExtensions'
+
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';

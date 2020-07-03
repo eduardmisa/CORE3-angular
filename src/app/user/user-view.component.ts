@@ -6,7 +6,7 @@ import { UserRead, UserGroupRead } from 'src/interfaces/user.interface';
 @Component({
   selector: 'app-user-view',
   template: `
-    <mat-card style="margin:20px;width:300px">
+    <mat-card style="margin:30px;">
       <mat-card-title>
         User Details
       </mat-card-title>

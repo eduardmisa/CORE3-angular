@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ServiceService } from 'src/services/service.service';
 import { PaginationQuery } from 'src/services/z.service';
 import { PaginatedResponse } from 'src/interfaces/paginated.response';
@@ -14,7 +14,7 @@ import {MatTableDataSource} from '@angular/material/table';
   selector: 'app-service-list',
   template: `
     
-    <mat-card style="margin:20px;width:700px">
+    <mat-card style="margin:30px;">
       
       <mat-card-title>
         Service List
@@ -30,17 +30,17 @@ import {MatTableDataSource} from '@angular/material/table';
 
           <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-            <td mat-cell *matCellDef="let item"> {{item.name}} </td>
+            <td mat-cell *matCellDef="let item"> {{item.name.trimByMaxCharacter(30)}} </td>
           </ng-container>
 
           <ng-container matColumnDef="description">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
-            <td mat-cell *matCellDef="let item"> {{item.description}} </td>
+            <td mat-cell *matCellDef="let item"> {{item.description.trimByMaxCharacter(30)}} </td>
           </ng-container>
 
           <ng-container matColumnDef="baseUrl">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Base Url </th>
-            <td mat-cell *matCellDef="let item"> {{item.baseUrl}} </td>
+            <td mat-cell *matCellDef="let item"> {{item.baseUrl.trimByMaxCharacter(30)}} </td>
           </ng-container>
         
           <ng-container matColumnDef="code">
@@ -61,29 +61,29 @@ import {MatTableDataSource} from '@angular/material/table';
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
 
-        <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+        <mat-paginator #appPaginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
       </mat-card-content>
     </mat-card>
   `,
 })
 export class ServiceListComponent implements OnInit {
   constructor(private svcService: ServiceService, private router: Router) { }
-
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  displayedColumns: string[] = ['name', 'description', 'baseUrl', 'code']
-  dataSource = new MatTableDataSource<ServiceList>()
-
+  
   ngOnInit(): void {
     this.populateServices()
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
 
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  displayedColumns: string[] = ['name', 'description', 'baseUrl', 'code']
+  dataSource = new MatTableDataSource<ServiceList>()
+
   populateServices () {
     this.svcService.paginate(new PaginationQuery(0, 0, '', ''))
     .subscribe((data: PaginatedResponse<ServiceList>) => {
-      this.dataSource = new MatTableDataSource<ServiceList>(data.results);
+      this.dataSource.data = data.results
     })
   }
 

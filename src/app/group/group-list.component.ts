@@ -13,7 +13,7 @@ import {MatTableDataSource} from '@angular/material/table';
 @Component({
   selector: 'app-group-list',
   template: `
-    <mat-card style="margin:20px;width:700px">
+    <mat-card style="margin:30px;">
       <mat-card-title>
         Group List
       </mat-card-title>
@@ -28,12 +28,12 @@ import {MatTableDataSource} from '@angular/material/table';
 
           <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-            <td mat-cell *matCellDef="let item"> {{item.name}} </td>
+            <td mat-cell *matCellDef="let item"> {{item.name.trimByMaxCharacter(30)}} </td>
           </ng-container>
 
           <ng-container matColumnDef="description">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
-            <td mat-cell *matCellDef="let item"> {{item.description}} </td>
+            <td mat-cell *matCellDef="let item"> {{item.description.trimByMaxCharacter(30)}} </td>
           </ng-container>
         
           <ng-container matColumnDef="code">
@@ -76,7 +76,7 @@ export class GroupListComponent implements OnInit {
   populateServices () {
     this.svcGroup.paginate(new PaginationQuery(0, 0, '', ''))
     .subscribe((data: PaginatedResponse<GroupList>) => {
-      this.dataSource = new MatTableDataSource<GroupList>(data.results);
+      this.dataSource.data = data.results
     })
   }
 

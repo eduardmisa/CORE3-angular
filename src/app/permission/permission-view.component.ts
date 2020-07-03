@@ -8,7 +8,7 @@ import { PermissionRead,
 @Component({
   selector: 'app-permission-view',
   template: `
-    <mat-card style="margin:20px;width:300px">
+    <mat-card style="margin:30px;">
       <mat-card-title>
         Permission Details
       </mat-card-title>

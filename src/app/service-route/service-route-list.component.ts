@@ -13,7 +13,7 @@ import {MatTableDataSource} from '@angular/material/table';
 @Component({
   selector: 'app-service-list',
   template: `
-    <mat-card style="margin:20px;width:700px">
+    <mat-card style="margin:30px;">
       <mat-card-title>
         Service Route List
       </mat-card-title>
@@ -28,17 +28,17 @@ import {MatTableDataSource} from '@angular/material/table';
 
           <ng-container matColumnDef="url">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Url </th>
-            <td mat-cell *matCellDef="let item"> {{item.url}} </td>
+            <td mat-cell *matCellDef="let item"> {{item.url.trimByMaxCharacter(30)}} </td>
           </ng-container>
 
           <ng-container matColumnDef="method">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Method </th>
-            <td mat-cell *matCellDef="let item"> {{item.method}} </td>
+            <td mat-cell *matCellDef="let item"> {{item.method.trimByMaxCharacter(30)}} </td>
           </ng-container>
 
           <ng-container matColumnDef="service">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Service </th>
-            <td mat-cell *matCellDef="let item"> {{item.service}} </td>
+            <td mat-cell *matCellDef="let item"> {{item.service.trimByMaxCharacter(30)}} </td>
           </ng-container>
         
           <ng-container matColumnDef="code">
@@ -59,7 +59,7 @@ import {MatTableDataSource} from '@angular/material/table';
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
 
-        <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons></mat-paginator>
       </mat-card-content>
     </mat-card>
   `,
@@ -81,7 +81,7 @@ export class ServiceRouteListComponent implements OnInit {
   populateServices () {
     this.svcServiceRoute.paginate(new PaginationQuery(0, 0, '', ''))
     .subscribe((data: PaginatedResponse<ServiceRouteList>) => {
-      this.dataSource = new MatTableDataSource<ServiceRouteList>(data.results);
+      this.dataSource.data = data.results
     })
   }
 
