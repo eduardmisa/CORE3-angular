@@ -13,8 +13,10 @@ import {MatTableDataSource} from '@angular/material/table';
 @Component({
   selector: 'app-service-list',
   template: `
+
+  <div style="margin-top:30px;margin-bottom:30px;margin-left:auto;margin-right:auto;width:900px;">
     
-    <mat-card style="margin:30px;">
+    <mat-card-loading [isLoading]="isLoading">
       
       <mat-card-title>
         Service List
@@ -25,6 +27,7 @@ import {MatTableDataSource} from '@angular/material/table';
 
       <mat-card-content>
         <button mat-icon-button color="primary" (click)="this.create()"><mat-icon>add</mat-icon></button>
+        <button mat-icon-button color="primary" (click)="this.populateServices()"><mat-icon>update</mat-icon></button>
 
         <table mat-table [dataSource]="dataSource" matSort style="width:100%;">
 
@@ -63,7 +66,10 @@ import {MatTableDataSource} from '@angular/material/table';
 
         <mat-paginator #appPaginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
       </mat-card-content>
-    </mat-card>
+    </mat-card-loading>
+
+  </div>
+
   `,
 })
 export class ServiceListComponent implements OnInit {
@@ -79,11 +85,14 @@ export class ServiceListComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   displayedColumns: string[] = ['name', 'description', 'baseUrl', 'code']
   dataSource = new MatTableDataSource<ServiceList>()
+  isLoading: boolean = false
 
   populateServices () {
+    this.isLoading = true
     this.svcService.paginate(new PaginationQuery(0, 0, '', ''))
     .subscribe((data: PaginatedResponse<ServiceList>) => {
       this.dataSource.data = data.results
+      this.isLoading = false
     })
   }
 
@@ -98,5 +107,9 @@ export class ServiceListComponent implements OnInit {
   }
   delete (id: number) {
     this.router.navigateByUrl(`/services/delete/${id}`)
+  }
+
+  toggleLoading () {
+    this.isLoading = !this.isLoading
   }
 }

@@ -9,18 +9,18 @@ interface Module {
 @Component({
   selector: 'app-sidebar',
   template: `
-    <mat-drawer-container class="example-container" [hasBackdrop]="false">
-      <mat-drawer [opened]="toggleState" [mode]="'side'">
-
+    <mat-drawer-container class="w-screen h-screen" [hasBackdrop]="false">
+      <mat-drawer [opened]="toggleState" [mode]="'side'" style="padding-top:56px;">
         <mat-selection-list [multiple]="false" dense>
           <mat-list-option *ngFor="let module of modules" [routerLink]="module.urlPath" routerLinkActive="active">
             {{module.name}}
           </mat-list-option>
         </mat-selection-list>
-
       </mat-drawer>
-      <mat-drawer-content style="min-height:100vh">
-        <ng-content></ng-content>
+      <mat-drawer-content style="min-height:100vh;overflow-y:auto;">
+        <div style="padding-top:56px;">
+          <ng-content></ng-content>
+        </div>
       </mat-drawer-content>
     </mat-drawer-container>
   `,

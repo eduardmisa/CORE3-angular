@@ -15,74 +15,75 @@ import { ServiceList } from 'src/interfaces/service.interface';
 @Component({
   selector: 'app-permission-create',
   template: `
-    <mat-card style="margin:30px;">
-      <mat-card-title>
-        Permission Create
-      </mat-card-title>
-      <mat-card-subtitle>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      </mat-card-subtitle>
+    <div style="margin-top:30px;margin-bottom:30px;margin-left:auto;margin-right:auto;width:900px;">
+      <mat-card-loading [isLoading]="isLoading">
+        <mat-card-title>
+          Permission Create
+        </mat-card-title>
+        <mat-card-subtitle>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        </mat-card-subtitle>
 
-      <mat-card-content style="display:flex-root">
+        <mat-card-content style="display:flex-root">
 
-        <button mat-icon-button color="primary" (click)="this.backToList()"><mat-icon>arrow_back</mat-icon></button>
+          <button mat-icon-button color="primary" (click)="this.backToList()"><mat-icon>arrow_back</mat-icon></button>
 
-        <br><br>
+          <br><br>
 
-        <mat-form-field class="w-full" appearance="fill" dense>
-          <mat-label>Name</mat-label>
-          <input matInput [(ngModel)]="this.form.name">
-        </mat-form-field>
+          <mat-form-field class="w-full" appearance="fill" dense>
+            <mat-label>Name</mat-label>
+            <input matInput [(ngModel)]="this.form.name">
+          </mat-form-field>
 
-        <br>
+          <br>
 
-        <mat-form-field class="w-full" appearance="fill" dense>
-          <mat-label>Description</mat-label>
-          <input matInput [(ngModel)]="this.form.description">
-        </mat-form-field>
+          <mat-form-field class="w-full" appearance="fill" dense>
+            <mat-label>Description</mat-label>
+            <input matInput [(ngModel)]="this.form.description">
+          </mat-form-field>
 
-        <br>
+          <br>
 
-        <mat-form-field class="w-full" appearance="fill" dense>
-          <mat-label>Service</mat-label>
-          <mat-select [(ngModel)]="this.form.service">
-            <mat-option *ngFor="let item of serviceList" [value]="item.code">{{item.name}}</mat-option>
-          </mat-select>
-        </mat-form-field>
+          <mat-form-field class="w-full" appearance="fill" dense>
+            <mat-label>Service</mat-label>
+            <mat-select [(ngModel)]="this.form.service">
+              <mat-option *ngFor="let item of serviceList" [value]="item.code">{{item.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
 
-        <br>
+          <br>
 
-        <mat-checkbox class="w-full" [(ngModel)]="this.form.hasAllAccess">Has all access</mat-checkbox>
+          <mat-checkbox class="w-full" [(ngModel)]="this.form.hasAllAccess">Has all access</mat-checkbox>
 
-        <br>
-        <br>
+          <br>
+          <br>
 
-        <mat-card class="mat-elevation-z0" *ngIf="!this.form.hasAllAccess">
-          <mat-card-subtitle>
-            Service Routes
-          </mat-card-subtitle>
-          <mat-selection-list dense [(ngModel)]="this.form.serviceRoutes">
-            <mat-list-option *ngFor="let route of serviceRouteList" [value]="route.code">
-            {{route.service}} [{{route.method}}] - {{route.url}}
-            </mat-list-option>
-          </mat-selection-list>
-        </mat-card>
+          <mat-card class="mat-elevation-z0" *ngIf="!this.form.hasAllAccess">
+            <mat-card-subtitle>
+              Service Routes
+            </mat-card-subtitle>
+            <mat-selection-list dense [(ngModel)]="this.form.serviceRoutes">
+              <mat-list-option *ngFor="let route of serviceRouteList" [value]="route.code">
+              {{route.service}} [{{route.method}}] - {{route.url}}
+              </mat-list-option>
+            </mat-selection-list>
+          </mat-card>
 
-        <br>
+          <br>
 
-        <mat-card *ngIf="errors.length > 0" class="mat-elevation-z0">
-          <div *ngFor="let error of errors">
-            <span class="mat-caption" style="color:maroon">{{error}}</span>
-          </div>
-        </mat-card>
+          <mat-card *ngIf="errors.length > 0" class="mat-elevation-z0">
+            <div *ngFor="let error of errors">
+              <span class="mat-caption" style="color:maroon">{{error}}</span>
+            </div>
+          </mat-card>
 
-        <br><br>
+          <br><br>
 
-        <button mat-stroked-button color="primary" (click)="this.Submit()">Submit</button>
+          <button mat-stroked-button color="primary" (click)="this.Submit()">Submit</button>
 
-      </mat-card-content>
-
-    </mat-card>
+        </mat-card-content>
+      </mat-card-loading>
+    </div>
   `,
 })
 export class PermissionCreateComponent implements OnInit {
@@ -104,7 +105,6 @@ export class PermissionCreateComponent implements OnInit {
 
   serviceRouteList: ServiceRouteList[]
   serviceList: ServiceList[]
-
   form:PermissionCreateRequest = {
     name: "",
     description: "",
@@ -112,7 +112,6 @@ export class PermissionCreateComponent implements OnInit {
     service: "",
     serviceRoutes: [] as string[]
   }
-
   createdResponse: PermissionCreateResponse = {
     code: "",
     name: "",
@@ -126,22 +125,25 @@ export class PermissionCreateComponent implements OnInit {
     } as PermissionServiceCreateResponse,
     serviceRoutes: [] as PermissionServiceRouteCreateResponse[]
   }
-
   errors: string[] = []
+  isLoading: boolean = false
   
   backToList () {
     this.router.navigateByUrl(`/permissions`)
   }
 
   Submit () {
+    this.isLoading = true
     this.errors = [] as string[]
     this.svcPermission.post<PermissionCreateResponse, PermissionCreateRequest>(this.form)
     .subscribe(
     data => {
+      this.isLoading = false
       this.createdResponse = data
       this.router.navigateByUrl(`/permissions`)
     },
     ({error}) => {
+      this.isLoading = false
       this.errors = error
     })
   }

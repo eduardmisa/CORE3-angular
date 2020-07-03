@@ -46,8 +46,10 @@ import {MatNativeDateModule} from '@angular/material/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AppSideBarComponent } from './app.sidebar.component';
-import { AppTopBarComponent } from './app.topbar.component';
+import { AppSideBarComponent } from './shared/app.sidebar.component';
+import { AppTopBarComponent } from './shared/app.topbar.component';
+
+import { LoadingCardComponent } from './shared/loading-card.component';
 
 
 import { LoginComponent } from './auth/login.component';
@@ -99,7 +101,7 @@ import { AuthGuardService } from './auth/can.activate';
 
 @NgModule({
   declarations: [
-    AppComponent,AppSideBarComponent,AppTopBarComponent,
+    AppComponent,AppSideBarComponent,AppTopBarComponent,LoadingCardComponent,
 
     LoginComponent,
 

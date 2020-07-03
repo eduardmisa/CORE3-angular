@@ -12,61 +12,62 @@ import { PaginatedResponse } from 'src/interfaces/paginated.response';
 @Component({
   selector: 'app-customer-create',
   template: `
-    <mat-card style="margin:30px;">
-      <mat-card-title>
-        Service Route Create
-      </mat-card-title>
-      <mat-card-subtitle>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      </mat-card-subtitle>
+    <div style="margin-top:30px;margin-bottom:30px;margin-left:auto;margin-right:auto;width:900px;">
+      <mat-card-loading [isLoading]="isLoading">
+        <mat-card-title>
+          Service Route Create
+        </mat-card-title>
+        <mat-card-subtitle>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        </mat-card-subtitle>
 
-      <mat-card-content style="display:flex-root">
+        <mat-card-content style="display:flex-root">
 
-        <button mat-icon-button color="primary" (click)="this.backToList()"><mat-icon>arrow_back</mat-icon></button>
+          <button mat-icon-button color="primary" (click)="this.backToList()"><mat-icon>arrow_back</mat-icon></button>
 
-        <br><br>
+          <br><br>
 
-        <mat-form-field class="w-full" appearance="fill" dense>
-          <mat-label>Url</mat-label>
-          <input matInput [value]="this.form.url" (input)="this.form.url = $event.target.value">
-        </mat-form-field>
+          <mat-form-field class="w-full" appearance="fill" dense>
+            <mat-label>Url</mat-label>
+            <input matInput [value]="this.form.url" (input)="this.form.url = $event.target.value">
+          </mat-form-field>
 
-        <br>
+          <br>
 
-        <mat-form-field class="w-full" appearance="fill" dense>
-          <mat-label>Method</mat-label>
-          <mat-select [(value)]="this.form.method">
-            <mat-option value="GET">GET</mat-option>
-            <mat-option value="POST">POST</mat-option>
-            <mat-option value="PUT">PUT</mat-option>
-            <mat-option value="DELETE">DELETE</mat-option>
-          </mat-select>
-        </mat-form-field>
+          <mat-form-field class="w-full" appearance="fill" dense>
+            <mat-label>Method</mat-label>
+            <mat-select [(value)]="this.form.method">
+              <mat-option value="GET">GET</mat-option>
+              <mat-option value="POST">POST</mat-option>
+              <mat-option value="PUT">PUT</mat-option>
+              <mat-option value="DELETE">DELETE</mat-option>
+            </mat-select>
+          </mat-form-field>
 
-        <br>
+          <br>
 
-        <mat-form-field class="w-full" appearance="fill" dense>
-          <mat-label>Service</mat-label>
-          <mat-select [(value)]="this.form.service">
-            <mat-option *ngFor="let item of serviceList" [value]="item.code">{{item.name}}</mat-option>
-          </mat-select>
-        </mat-form-field>
+          <mat-form-field class="w-full" appearance="fill" dense>
+            <mat-label>Service</mat-label>
+            <mat-select [(value)]="this.form.service">
+              <mat-option *ngFor="let item of serviceList" [value]="item.code">{{item.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
 
-        <br>
+          <br>
 
-        <mat-card *ngIf="errors.length > 0" class="mat-elevation-z0">
-          <div *ngFor="let error of errors">
-            <span class="mat-caption" style="color:maroon">{{error}}</span>
-          </div>
-        </mat-card>
+          <mat-card *ngIf="errors.length > 0" class="mat-elevation-z0">
+            <div *ngFor="let error of errors">
+              <span class="mat-caption" style="color:maroon">{{error}}</span>
+            </div>
+          </mat-card>
 
-        <br><br>
+          <br><br>
 
-        <button mat-stroked-button color="primary" (click)="this.Submit()">Submit</button>
+          <button mat-stroked-button color="primary" (click)="this.Submit()">Submit</button>
 
-      </mat-card-content>
-
-    </mat-card>
+        </mat-card-content>
+      </mat-card-loading>
+    </div>
   `,
 })
 export class ServiceRouteCreateComponent implements OnInit {
@@ -80,35 +81,36 @@ export class ServiceRouteCreateComponent implements OnInit {
   }
 
   serviceList: ServiceList[]
-
   form:ServiceRouteCreateRequest = {
     url: "",
     method: "",
     service: ""
   }
-
   createdResponse:ServiceRouteCreateResponse = {
     code: "",
     url: "",
     method: "",
     service: ""
   }
-
   errors: string[] = []
+  isLoading: boolean = false
   
   backToList () {
     this.router.navigateByUrl(`/service-routes`)
   }
 
   Submit () {
+    this.isLoading = true
     this.errors = [] as string[]
     this.svcServiceRoute.post<ServiceRouteCreateResponse, ServiceRouteCreateRequest>(this.form)
     .subscribe(
     data => {
+      this.isLoading = false
       this.createdResponse = data
       this.router.navigateByUrl(`/service-routes`)
     },
     ({error}) => {
+      this.isLoading = false
       this.errors = error
     })
   }

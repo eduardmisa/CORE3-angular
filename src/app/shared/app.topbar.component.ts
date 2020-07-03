@@ -7,7 +7,7 @@ import { CurrentUser } from 'src/interfaces/auth.interface';
 @Component({
   selector: 'app-topbar',
   template: `
-    <mat-toolbar color="primary" style="height:56px;display:flex;">
+    <mat-toolbar color="primary" style="height:56px;display:flex;position:fixed;z-index:999;">
       <button mat-icon-button (click)="this.onToggle()"><mat-icon>menu</mat-icon></button>
       <button mat-button routerLink="/" routerLinkActive="active">CORE Admin</button>
 

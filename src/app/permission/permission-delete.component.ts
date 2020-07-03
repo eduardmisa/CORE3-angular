@@ -9,96 +9,101 @@ import { PermissionRead,
 @Component({
   selector: 'app-permission-delete',
   template: `
-    <mat-card style="margin:30px;">
-      <mat-card-title>
-        Permission Delete
-      </mat-card-title>
-      <mat-card-subtitle>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      </mat-card-subtitle>
+    <div style="margin-top:30px;margin-bottom:30px;margin-left:auto;margin-right:auto;width:900px;">
+      <mat-card-loading [isLoading]="isLoading">
+        <mat-card-title>
+          Permission Delete
+        </mat-card-title>
+        <mat-card-subtitle>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        </mat-card-subtitle>
 
-      <mat-card-content style="display:flex-root">
+        <mat-card-content style="display:flex-root">
 
-        <button mat-icon-button color="primary" (click)="this.backToList()"><mat-icon>arrow_back</mat-icon></button>
+          <button mat-icon-button color="primary" (click)="this.backToList()"><mat-icon>arrow_back</mat-icon></button>
 
-        <br><br>
-
-        <mat-form-field class="w-full" disabled>
-          <mat-label>Code</mat-label>
-          <input matInput [value]="permission.code" readonly>
-        </mat-form-field>
-
-        <br>
-
-        <mat-form-field class="w-full">
-          <mat-label>Name</mat-label>
-          <input matInput [value]="permission.name" readonly>
-        </mat-form-field>
-
-        <br>
-
-        <mat-form-field class="w-full">
-          <mat-label>Description</mat-label>
-          <input matInput [value]="permission.description" readonly>
-        </mat-form-field>
-
-        <br>
-
-        <mat-card class="mat-elevation-z0">
+          <br><br>
 
           <mat-form-field class="w-full" disabled>
-            <mat-label>Service Code</mat-label>
-            <input matInput [value]="permission.service.code" readonly>
+            <mat-label>Code</mat-label>
+            <input matInput [value]="permission.code" readonly>
           </mat-form-field>
 
-          <mat-form-field class="w-full" disabled>
-            <mat-label>Service Name</mat-label>
-            <input matInput [value]="permission.service.name" readonly>
+          <br>
+
+          <mat-form-field class="w-full">
+            <mat-label>Name</mat-label>
+            <input matInput [value]="permission.name" readonly>
           </mat-form-field>
 
-          <mat-form-field class="w-full" disabled>
-            <mat-label>Service Description</mat-label>
-            <input matInput [value]="permission.service.description" readonly>
+          <br>
+
+          <mat-form-field class="w-full">
+            <mat-label>Description</mat-label>
+            <input matInput [value]="permission.description" readonly>
           </mat-form-field>
 
-          <mat-form-field class="w-full" disabled>
-            <mat-label>Service baseUrl</mat-label>
-            <input matInput [value]="permission.service.baseUrl" readonly>
-          </mat-form-field>
+          <br>
 
-        </mat-card>
+          <mat-card class="mat-elevation-z0">
 
-        <br>
+            <mat-form-field class="w-full" disabled>
+              <mat-label>Service Code</mat-label>
+              <input matInput [value]="permission.service.code" readonly>
+            </mat-form-field>
 
-        <mat-checkbox class="w-full" [(ngModel)]="permission.hasAllAccess">Has all access</mat-checkbox>
+            <mat-form-field class="w-full" disabled>
+              <mat-label>Service Name</mat-label>
+              <input matInput [value]="permission.service.name" readonly>
+            </mat-form-field>
 
-        <br>
-        <br>
+            <mat-form-field class="w-full" disabled>
+              <mat-label>Service Description</mat-label>
+              <input matInput [value]="permission.service.description" readonly>
+            </mat-form-field>
 
-        <mat-card class="mat-elevation-z0" *ngIf="!permission.hasAllAccess">
-          <mat-card-subtitle>
-            Service Routes
-          </mat-card-subtitle>
-          <mat-selection-list dense>
-            <mat-list-option *ngFor="let route of permission.serviceRoutes">
-            [{{route.method}}] - {{route.url}}
-            </mat-list-option>
-          </mat-selection-list>
-        </mat-card>
+            <mat-form-field class="w-full" disabled>
+              <mat-label>Service baseUrl</mat-label>
+              <input matInput [value]="permission.service.baseUrl" readonly>
+            </mat-form-field>
 
-        <mat-card *ngIf="errors.length > 0" class="mat-elevation-z0">
-          <div *ngFor="let error of errors">
-            <span class="mat-caption" style="color:maroon">{{error}}</span>
-          </div>
-        </mat-card>
+          </mat-card>
 
-        <button mat-stroked-button color="primary" (click)="this.Submit()">Submit</button>
+          <br>
 
-      </mat-card-content>
-    </mat-card>
+          <mat-checkbox class="w-full" [(ngModel)]="permission.hasAllAccess">Has all access</mat-checkbox>
+
+          <br>
+          <br>
+
+          <mat-card class="mat-elevation-z0" *ngIf="!permission.hasAllAccess">
+            <mat-card-subtitle>
+              Service Routes
+            </mat-card-subtitle>
+            <mat-selection-list dense>
+              <mat-list-option *ngFor="let route of permission.serviceRoutes">
+              [{{route.method}}] - {{route.url}}
+              </mat-list-option>
+            </mat-selection-list>
+          </mat-card>
+
+          <mat-card *ngIf="errors.length > 0" class="mat-elevation-z0">
+            <div *ngFor="let error of errors">
+              <span class="mat-caption" style="color:maroon">{{error}}</span>
+            </div>
+          </mat-card>
+
+          <button mat-stroked-button color="primary" (click)="this.Submit()">Submit</button>
+
+        </mat-card-content>
+      </mat-card-loading>
+    </div>
   `,
 })
 export class PermissionDeleteComponent implements OnInit {
+  constructor(private svcPermission: PermissionService, private router: Router, private route: ActivatedRoute) {
+    this.route.params.subscribe(({id}) => this.slug = id);
+  }
 
   slug: string
   permission: PermissionRead = {
@@ -116,10 +121,7 @@ export class PermissionDeleteComponent implements OnInit {
   }
   deletedResponse: PermissionDeleteResponse
   errors: string[] = []
-
-  constructor(private svcPermission: PermissionService, private router: Router, private route: ActivatedRoute) {
-    this.route.params.subscribe(({id}) => this.slug = id);
-   }
+  isLoading: boolean = false
 
    backToList () {
     this.router.navigateByUrl(`/permissions`)
@@ -130,21 +132,26 @@ export class PermissionDeleteComponent implements OnInit {
   }
 
   fetchServices () {
+    this.isLoading = true
     this.svcPermission.retreive<PermissionRead>(this.slug)
     .subscribe(item => {
       this.permission = item
+      this.isLoading = false
     })
   }
 
   Submit () {
+    this.isLoading = true
     this.errors = [] as string[]
     this.svcPermission.delete<PermissionDeleteResponse>(this.slug)
     .subscribe(
     data => {
+      this.isLoading = false
       this.deletedResponse = data
       this.router.navigateByUrl(`/permissions`)
     },
     ({error}) => {
+      this.isLoading = false
       this.errors = error
     })
   }

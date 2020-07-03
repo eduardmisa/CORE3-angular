@@ -14,58 +14,59 @@ import { PermissionList } from 'src/interfaces/permission.interface';
 @Component({
   selector: 'app-group-update',
   template: `
-    <mat-card style="margin:30px;">
-      <mat-card-title>
-        Group Update
-      </mat-card-title>
-      <mat-card-subtitle>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      </mat-card-subtitle>
+    <div style="margin-top:30px;margin-bottom:30px;margin-left:auto;margin-right:auto;width:900px;">
+      <mat-card-loading [isLoading]="isLoading">
+        <mat-card-title>
+          Group Update
+        </mat-card-title>
+        <mat-card-subtitle>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        </mat-card-subtitle>
 
-      <mat-card-content style="display:flex-root">
+        <mat-card-content style="display:flex-root">
 
-        <button mat-icon-button color="primary" (click)="this.backToList()"><mat-icon>arrow_back</mat-icon></button>
+          <button mat-icon-button color="primary" (click)="this.backToList()"><mat-icon>arrow_back</mat-icon></button>
 
-        <br><br>
+          <br><br>
 
-        <mat-form-field class="w-full" appearance="fill" dense>
-          <mat-label>Name</mat-label>
-          <input matInput [value]="this.form.name" (input)="this.form.name = $event.target.value">
-        </mat-form-field>
+          <mat-form-field class="w-full" appearance="fill" dense>
+            <mat-label>Name</mat-label>
+            <input matInput [value]="this.form.name" (input)="this.form.name = $event.target.value">
+          </mat-form-field>
 
-        <br>
+          <br>
 
-        <mat-form-field class="w-full" appearance="fill" dense>
-          <mat-label>Description</mat-label>
-          <input matInput [value]="this.form.description" (input)="this.form.description = $event.target.value">
-        </mat-form-field>
+          <mat-form-field class="w-full" appearance="fill" dense>
+            <mat-label>Description</mat-label>
+            <input matInput [value]="this.form.description" (input)="this.form.description = $event.target.value">
+          </mat-form-field>
 
-        <br>
+          <br>
 
-        <mat-card class="mat-elevation-z0">
-          <mat-card-subtitle>
-            Permissions
-          </mat-card-subtitle>
-          <mat-selection-list dense [(ngModel)]="this.form.permissions">
-            <mat-list-option *ngFor="let permission of permissionList" [value]="permission.code">
-              {{permission.name}}
-            </mat-list-option>
-          </mat-selection-list>
-        </mat-card>
+          <mat-card class="mat-elevation-z0">
+            <mat-card-subtitle>
+              Permissions
+            </mat-card-subtitle>
+            <mat-selection-list dense [(ngModel)]="this.form.permissions">
+              <mat-list-option *ngFor="let permission of permissionList" [value]="permission.code">
+                {{permission.name}}
+              </mat-list-option>
+            </mat-selection-list>
+          </mat-card>
 
-        <br>
+          <br>
 
-        <mat-card *ngIf="errors.length > 0" class="mat-elevation-z0">
-          <span *ngFor="let error of errors" class="mat-caption" style="color:maroon">{{error}}</span>
-        </mat-card>
+          <mat-card *ngIf="errors.length > 0" class="mat-elevation-z0">
+            <span *ngFor="let error of errors" class="mat-caption" style="color:maroon">{{error}}</span>
+          </mat-card>
 
-        <br><br>
+          <br><br>
 
-        <button mat-stroked-button color="primary" (click)="this.Submit()">Submit</button>
+          <button mat-stroked-button color="primary" (click)="this.Submit()">Submit</button>
 
-      </mat-card-content>
-
-    </mat-card>
+        </mat-card-content>
+      </mat-card-loading>
+    </div>
   `,
 })
 export class GroupUpdateComponent implements OnInit {
@@ -74,11 +75,13 @@ export class GroupUpdateComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.isLoading = true
     this.svcGroup.retreive<GroupRead>(this.slug)
     .subscribe(item => {
       this.form.name = item.name
       this.form.description = item.description
       this.form.permissions = item.permissions.map(a => a.code)
+      this.isLoading = false
     })
     this.svcPermission.paginate(new PaginationQuery(0, 0, '', ''))
     .subscribe((data: PaginatedResponse<PermissionList>) => {
@@ -86,9 +89,8 @@ export class GroupUpdateComponent implements OnInit {
     })
   }
 
-  permissionList: PermissionList[]
-
   slug: string
+  permissionList: PermissionList[]
   form:GroupUpdateRequest = {
     name: "",
     description: "",
@@ -100,9 +102,8 @@ export class GroupUpdateComponent implements OnInit {
     description: "",
     permissions: [] as GroupPermissionUpdateResponse[]
   }
-
   errors: string[] = []
-
+  isLoading: boolean = false
 
 
   backToList () {
@@ -110,14 +111,17 @@ export class GroupUpdateComponent implements OnInit {
   }
 
   Submit () {
+    this.isLoading = true
     this.errors = [] as string[]
     this.svcGroup.put<GroupUpdateResponse, GroupUpdateRequest>(this.slug, this.form)
     .subscribe(
     data => {
+      this.isLoading = false
       this.updatedResponse = data
       this.router.navigateByUrl(`/groups`)
     },
     ({error}) => {
+      this.isLoading = false
       this.errors = error
     })
   }

@@ -12,60 +12,61 @@ import { PaginatedResponse } from 'src/interfaces/paginated.response';
 @Component({
   selector: 'app-group-create',
   template: `
-    <mat-card style="margin:30px;">
-      <mat-card-title>
-        Group Create
-      </mat-card-title>
-      <mat-card-subtitle>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      </mat-card-subtitle>
+    <div style="margin-top:30px;margin-bottom:30px;margin-left:auto;margin-right:auto;width:900px;">
+      <mat-card-loading [isLoading]="isLoading">
+        <mat-card-title>
+          Group Create
+        </mat-card-title>
+        <mat-card-subtitle>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        </mat-card-subtitle>
 
-      <mat-card-content style="display:flex-root">
+        <mat-card-content style="display:flex-root">
 
-        <button mat-icon-button color="primary" (click)="this.backToList()"><mat-icon>arrow_back</mat-icon></button>
+          <button mat-icon-button color="primary" (click)="this.backToList()"><mat-icon>arrow_back</mat-icon></button>
 
-        <br><br>
+          <br><br>
 
-        <mat-form-field class="w-full" appearance="fill" dense>
-          <mat-label>Name</mat-label>
-          <input matInput [value]="this.form.name" (input)="this.form.name = $event.target.value">
-        </mat-form-field>
+          <mat-form-field class="w-full" appearance="fill" dense>
+            <mat-label>Name</mat-label>
+            <input matInput [value]="this.form.name" (input)="this.form.name = $event.target.value">
+          </mat-form-field>
 
-        <br>
+          <br>
 
-        <mat-form-field class="w-full" appearance="fill" dense>
-          <mat-label>Description</mat-label>
-          <input matInput [value]="this.form.description" (input)="this.form.description = $event.target.value">
-        </mat-form-field>
+          <mat-form-field class="w-full" appearance="fill" dense>
+            <mat-label>Description</mat-label>
+            <input matInput [value]="this.form.description" (input)="this.form.description = $event.target.value">
+          </mat-form-field>
 
-        <br>
+          <br>
 
-        <mat-card class="mat-elevation-z0">
-          <mat-card-subtitle>
-            Permissions
-          </mat-card-subtitle>
-          <mat-selection-list dense [(ngModel)]="this.form.permissions">
-            <mat-list-option *ngFor="let permission of permissionList" [value]="permission.code">
-              {{permission.name}}
-            </mat-list-option>
-          </mat-selection-list>
-        </mat-card>
+          <mat-card class="mat-elevation-z0">
+            <mat-card-subtitle>
+              Permissions
+            </mat-card-subtitle>
+            <mat-selection-list dense [(ngModel)]="this.form.permissions">
+              <mat-list-option *ngFor="let permission of permissionList" [value]="permission.code">
+                {{permission.name}}
+              </mat-list-option>
+            </mat-selection-list>
+          </mat-card>
 
-        <br>
+          <br>
 
-        <mat-card *ngIf="errors.length > 0" class="mat-elevation-z0">
-          <div *ngFor="let error of errors">
-            <span class="mat-caption" style="color:maroon">{{error}}</span>
-          </div>
-        </mat-card>
+          <mat-card *ngIf="errors.length > 0" class="mat-elevation-z0">
+            <div *ngFor="let error of errors">
+              <span class="mat-caption" style="color:maroon">{{error}}</span>
+            </div>
+          </mat-card>
 
-        <br><br>
+          <br><br>
 
-        <button mat-stroked-button color="primary" (click)="this.Submit()">Submit</button>
+          <button mat-stroked-button color="primary" (click)="this.Submit()">Submit</button>
 
-      </mat-card-content>
-
-    </mat-card>
+        </mat-card-content>
+      </mat-card-loading>
+    </div>
   `,
 })
 export class GroupCreateComponent implements OnInit {
@@ -79,35 +80,36 @@ export class GroupCreateComponent implements OnInit {
   }
 
   permissionList: PermissionList[]
-
   form:GroupCreateRequest = {
     name: "",
     description: "",
     permissions: [] as string[]
   }
-
   createdResponse:GroupCreateResponse = {
     code: "",
     name: "",
     description: "",
     permissions: [] as GroupPermissionCreateResponse[]
   }
-
   errors: string[] = []
+  isLoading: boolean = false
   
   backToList () {
     this.router.navigateByUrl(`/groups`)
   }
 
   Submit () {
+    this.isLoading = true
     this.errors = [] as string[]
     this.svcGroup.post<GroupCreateResponse, GroupCreateRequest>(this.form)
     .subscribe(
     data => {
+      this.isLoading = false
       this.createdResponse = data
       this.router.navigateByUrl(`/groups`)
     },
     ({error}) => {
+      this.isLoading = false
       this.errors = error
     })
   }
