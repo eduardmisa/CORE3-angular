@@ -25,6 +25,7 @@ import {MatTableDataSource} from '@angular/material/table';
         <mat-card-content>
           <button mat-icon-button color="accent" (click)="this.create()"><mat-icon>add</mat-icon></button>
           <button mat-icon-button color="accent" (click)="this.populateServiceRoutes()"><mat-icon>update</mat-icon></button>
+          <button mat-icon-button color="accent" (click)="this.endpointLookup()"><mat-icon>api</mat-icon></button>
 
           <table mat-table [dataSource]="dataSource" matSort style="width:100%;">
 
@@ -102,5 +103,9 @@ export class ServiceRouteListComponent implements OnInit {
   }
   delete (id: number) {
     this.router.navigateByUrl(`/service-routes/delete/${id}`)
+  }
+
+  endpointLookup () {
+    this.router.navigateByUrl(`/service-routes/endpoint-lookup`)
   }
 }

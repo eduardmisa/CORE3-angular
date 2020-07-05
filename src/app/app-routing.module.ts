@@ -18,6 +18,7 @@ import { ServiceRouteViewComponent } from './service-route/service-route-view.co
 import { ServiceRouteCreateComponent } from './service-route/service-route-create.component';
 import { ServiceRouteUpdateComponent } from './service-route/service-route-update.component';
 import { ServiceRouteDeleteComponent } from './service-route/service-route-delete.component';
+import { ServiceRouteEndpointLookupComponent } from './service-route/service-route-endpoint-lookup.component';
 
 import { PermissionListComponent } from './permission/permission-list.component';
 import { PermissionViewComponent } from './permission/permission-view.component';
@@ -56,6 +57,7 @@ const routes: Routes = [
   { path: 'service-routes/create', component: ServiceRouteCreateComponent, canActivate: [ AuthGuardService ] },
   { path: 'service-routes/update/:id', component: ServiceRouteUpdateComponent, canActivate: [ AuthGuardService ] },
   { path: 'service-routes/delete/:id', component: ServiceRouteDeleteComponent, canActivate: [ AuthGuardService ] },
+  { path: 'service-routes/endpoint-lookup', component: ServiceRouteEndpointLookupComponent, canActivate: [ AuthGuardService ] },
 
   { path: 'permissions', component: PermissionListComponent, canActivate: [ AuthGuardService ] },
   { path: 'permissions/view/:id', component: PermissionViewComponent, canActivate: [ AuthGuardService ] },

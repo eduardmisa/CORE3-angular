@@ -57,3 +57,11 @@ export interface ServiceRouteDeleteResponse {
   url: string;
   Service: string;
 }
+
+
+
+export interface ServiceRouteEndpointLookupRequest {
+  serviceCode: string;
+  method: string;
+  endpoint: string;
+}

@@ -67,6 +67,7 @@ import { ServiceRouteViewComponent } from './service-route/service-route-view.co
 import { ServiceRouteCreateComponent } from './service-route/service-route-create.component';
 import { ServiceRouteUpdateComponent } from './service-route/service-route-update.component';
 import { ServiceRouteDeleteComponent } from './service-route/service-route-delete.component';
+import { ServiceRouteEndpointLookupComponent } from './service-route/service-route-endpoint-lookup.component';
 
 
 import { PermissionListComponent } from './permission/permission-list.component';
@@ -118,6 +119,7 @@ import { AuthGuardService } from './auth/can.activate';
     ServiceRouteCreateComponent,
     ServiceRouteUpdateComponent,
     ServiceRouteDeleteComponent,
+    ServiceRouteEndpointLookupComponent,
 
     PermissionListComponent,
     PermissionViewComponent,

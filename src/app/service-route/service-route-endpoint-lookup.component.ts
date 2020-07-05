@@ -1,21 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-
-import { ServiceService } from 'src/services/service.service';
-import { ServiceList } from 'src/interfaces/service.interface';
-
 import { ServiceRouteService } from 'src/services/service.route.service';
-import { ServiceRouteCreateRequest, ServiceRouteCreateResponse } from 'src/interfaces/service.route.interface';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ServiceRouteRead, ServiceRouteServiceRead, ServiceRouteEndpointLookupRequest } from 'src/interfaces/service.route.interface';
+import { ServiceList } from 'src/interfaces/service.interface';
+import { ServiceService } from 'src/services/service.service';
 import { PaginationQuery } from 'src/services/z.service';
 import { PaginatedResponse } from 'src/interfaces/paginated.response';
 
 @Component({
-  selector: 'app-customer-create',
+  selector: 'app-service-view',
   template: `
     <div style="margin-top:30px;margin-bottom:30px;margin-left:auto;margin-right:auto;width:900px;">
       <mat-card-loading [isLoading]="isLoading">
         <mat-card-title>
-          Service Route Create
+          Service Route Endpoint Lookup
         </mat-card-title>
         <mat-card-subtitle>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -28,13 +26,6 @@ import { PaginatedResponse } from 'src/interfaces/paginated.response';
           <br><br>
 
           <mat-form-field class="w-full" appearance="fill" dense>
-            <mat-label>Url</mat-label>
-            <input matInput [value]="this.form.url" (input)="this.form.url = $event.target.value">
-          </mat-form-field>
-
-          <br>
-
-          <mat-form-field class="w-full" appearance="fill" dense>
             <mat-label>Method</mat-label>
             <mat-select [(value)]="this.form.method">
               <mat-option value="GET">GET</mat-option>
@@ -43,17 +34,36 @@ import { PaginatedResponse } from 'src/interfaces/paginated.response';
               <mat-option value="DELETE">DELETE</mat-option>
             </mat-select>
           </mat-form-field>
-
+          
           <br>
 
           <mat-form-field class="w-full" appearance="fill" dense>
             <mat-label>Service</mat-label>
-            <mat-select [(value)]="this.form.service">
+            <mat-select [(value)]="this.form.serviceCode">
               <mat-option *ngFor="let item of serviceList" [value]="item.code">{{item.name}}</mat-option>
             </mat-select>
           </mat-form-field>
 
           <br>
+
+          <mat-form-field class="w-full" appearance="fill" dense>
+            <mat-label>Endpoint</mat-label>
+            <input matInput [value]="this.form.endpoint" (input)="this.form.endpoint = $event.target.value">
+          </mat-form-field>
+
+          <br>
+
+          <mat-card class="mat-elevation-z0" style="border: solid 1px primary; border-radius:10px">
+            <mat-card-subtitle>
+              Matched service routes regex
+            </mat-card-subtitle>
+            <div *ngIf="response.length == 0">
+              <span class="mat-caption">Empty</span>
+            </div>
+            <div *ngFor="let item of response">
+              <span class="mat-caption" style="color:green">{{item}}</span>
+            </div>
+          </mat-card>
 
           <mat-card *ngIf="errors.length > 0" class="mat-elevation-z0">
             <div *ngFor="let error of errors">
@@ -63,55 +73,54 @@ import { PaginatedResponse } from 'src/interfaces/paginated.response';
 
           <br><br>
 
-          <button mat-stroked-button color="accent" (click)="this.Submit()">Submit</button>
+          <button mat-stroked-button color="accent" (click)="this.Submit()">Lookup</button>
 
         </mat-card-content>
       </mat-card-loading>
     </div>
   `,
 })
-export class ServiceRouteCreateComponent implements OnInit {
+export class ServiceRouteEndpointLookupComponent implements OnInit {
   constructor(private svcServiceRoute: ServiceRouteService, private svcService: ServiceService, private router: Router) { }
 
+  serviceList: ServiceList[]
+  isLoading: boolean = false
+  form:ServiceRouteEndpointLookupRequest = {
+    serviceCode: "",
+    method: "",
+    endpoint: ""
+  }
+  response: string[] = []
+  errors: string[] = []
+
+  backToList () {
+    this.router.navigateByUrl(`/service-routes`)
+  }
+
   ngOnInit(): void {
+    this.fetchServices()
+  }
+
+  fetchServices () {
     this.svcService.paginate(new PaginationQuery(0, 0, '', ''))
     .subscribe((data: PaginatedResponse<ServiceList>) => {
       this.serviceList = data.results
     })
   }
 
-  serviceList: ServiceList[]
-  form:ServiceRouteCreateRequest = {
-    url: "",
-    method: "",
-    service: ""
-  }
-  createdResponse:ServiceRouteCreateResponse = {
-    code: "",
-    url: "",
-    method: "",
-    service: ""
-  }
-  errors: string[] = []
-  isLoading: boolean = false
-  
-  backToList () {
-    this.router.navigateByUrl(`/service-routes`)
-  }
-
   Submit () {
     this.isLoading = true
-    this.errors = [] as string[]
-    this.svcServiceRoute.post<ServiceRouteCreateResponse, ServiceRouteCreateRequest>(this.form)
+    this.response = []
+    this.errors = []
+    this.svcServiceRoute.endpointLookup(this.form.serviceCode, this.form.method, this.form.endpoint)
     .subscribe(
     data => {
+      this.response = data
       this.isLoading = false
-      this.createdResponse = data
-      this.router.navigateByUrl(`/service-routes`)
     },
     ({error}) => {
-      this.isLoading = false
       this.errors = error
+      this.isLoading = false
     })
   }
 }
