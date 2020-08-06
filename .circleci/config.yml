@@ -12,7 +12,9 @@ jobs:
 
       - run:
           name: Install ANGULAR CLI
-          command: sudo npm install -g -y @angular/cli
+          command: |
+            sudo npm init -f -y
+            sudo npm install -g -y @angular/cli
 
       - run:
           name: Install Packages
