@@ -1,37 +1,22 @@
 version: 2.1
 
+orbs:
+  node: circleci/node@1.1.6
+
 jobs:
   install_rebuild:
-    machine:
-      image: ubuntu-1604:202007-01
+    executor: node/default
     working_directory: ~/src
     steps:
       - checkout
 
       - run:
-          name: Install DOTNET CLI
-          command: |
-            wget https://packages.microsoft.com/config/ubuntu/16.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
-            sudo dpkg -i packages-microsoft-prod.deb
-            sudo apt-get update; \
-              sudo apt-get install -y apt-transport-https && \
-              sudo apt-get update && \
-              sudo apt-get install -y dotnet-sdk-3.1
-            sudo apt-get update; \
-              sudo apt-get install -y apt-transport-https && \
-              sudo apt-get update && \
-              sudo apt-get install -y aspnetcore-runtime-3.1
+          name: Install Packages
+          command: npm install
 
       - run:
-          name: Install Requirements in Venv
-          command: |
-            cp CORE/*.csproj ./
-            dotnet restore
-
-      - run:
-          name: Build Application
-          command: |
-            dotnet build --configuration Release
+          name: Build Project
+          command: build:ssr
 
       - run:
           name: Compress Build Files

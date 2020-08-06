@@ -24,8 +24,9 @@ sudo tar -xzf $BUILD_DUMP_PATH/BUILD.tar.gz --directory $BUILD_DUMP_PATH
 echo "DONE"
 
 echo "03 - TRANSFORMING ENV TEMPLATE TO ENV FILE"
-sudo cp $BUILD_DUMP_PATH/appsettings.AWS.json $BUILD_DUMP_PATH/appsettings.json
-echo "DONE"
+echo "03 - Skipping. No need in Angular for this step."
+# sudo cp $BUILD_DUMP_PATH/appsettings.AWS.json $BUILD_DUMP_PATH/appsettings.json
+# echo "DONE"
 
 echo "04 - DELETE UPLOADED ZIP FILE"
 sudo rm -rf $BUILD_DUMP_PATH/BUILD.tar.gz
