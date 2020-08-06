@@ -11,8 +11,8 @@ jobs:
       - checkout
 
       - run:
-        name: Install ANGULAR CLI
-        command: npm install -g @angular/cli
+          name: Install ANGULAR CLI
+          command: npm install -g @angular/cli
 
       - run:
           name: Install Packages
