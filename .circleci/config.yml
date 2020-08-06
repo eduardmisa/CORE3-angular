@@ -11,12 +11,8 @@ jobs:
       - checkout
 
       - run:
-          name: 'Set env'
-          command: echo 'export NG_CLI_ANALYTICS=ci' >> $BASH_ENV
-
-      - run:
           name: Install ANGULAR CLI
-          command: sudo npm install -g -y @angular/cli
+          command: sudo npm install -g @angular/cli > /dev/null
 
       - run:
           name: Install Packages
