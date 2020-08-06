@@ -32,8 +32,8 @@ export class AppSideBarComponent {
     { name: "Services", urlPath: "/services"},
     { name: "ServiceRoutes", urlPath: "/service-routes"},
     // { name: "Modules", urlPath: "/modules"},
-    { name: "Groups", urlPath: "/groups"},
     { name: "Permissions", urlPath: "/permissions"},
+    { name: "Groups", urlPath: "/groups"},
     { name: "Users", urlPath: "/users"},
   ]
 
