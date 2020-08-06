@@ -11,12 +11,16 @@ jobs:
       - checkout
 
       - run:
+        name: Install ANGULAR CLI
+        command: npm install -g @angular/cli
+
+      - run:
           name: Install Packages
           command: npm install
 
       - run:
           name: Build Project
-          command: build:ssr
+          command: npm run build:ssr
 
       - run:
           name: Compress Build Files
