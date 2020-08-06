@@ -12,9 +12,9 @@ jobs:
 
       - run:
           name: Install ANGULAR CLI
-          command: |
-            export NG_CLI_ANALYTICS=ci
-            sudo npm install -g -y @angular/cli
+          environment:
+            NG_CLI_ANALYTICS: "ci"
+          command: sudo npm install -g -y @angular/cli
 
       - run:
           name: Install Packages
