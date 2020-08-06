@@ -12,15 +12,15 @@ jobs:
 
       - run:
           name: Install ANGULAR CLI
-          command: npm install -g @angular/cli
+          command: sudo npm install -g @angular/cli
 
       - run:
           name: Install Packages
-          command: npm install
+          command: sudo npm install
 
       - run:
           name: Build Project
-          command: npm run build:ssr
+          command: sudo npm run build:ssr
 
       - run:
           name: Compress Build Files
